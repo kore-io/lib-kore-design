@@ -1,0 +1,35 @@
+/*
+ * Empty State do DS v0.16: cartão branco com borda, raio lg e 16 px entre os itens;
+ * círculo de 56 px em primary.tint com o ícone de 28 px em primary.dark; título em
+ * type.heading e apoio em body.md gray.700, centralizados. Celular: largura toda, 32/24
+ * de respiro e a ação na largura toda. Desktop: 480 px e 40 px de respiro.
+ * Escolha do código, sem par no Penpot: o DS só tem Celular e Desktop; o tablet
+ * (a partir de 768 px) usa o Desktop.
+ */
+.kore-empty-state {
+  @apply flex w-full flex-col items-center gap-4 rounded-lg border border-border bg-card px-6 py-8 text-center md:w-120 md:p-10;
+}
+
+.kore-empty-state__icon {
+  @apply flex size-14 shrink-0 items-center justify-center rounded-full bg-primary-tint text-primary-dark;
+}
+
+.kore-empty-state__icon > svg {
+  @apply size-7;
+}
+
+.kore-empty-state__title {
+  @apply type-heading text-ink;
+}
+
+.kore-empty-state__description {
+  @apply type-body-md text-gray-700;
+}
+
+.kore-empty-state__action {
+  @apply flex self-stretch md:self-center;
+}
+
+.kore-empty-state__action > * {
+  @apply flex-1 md:flex-none;
+}
