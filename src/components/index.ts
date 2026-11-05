@@ -22,3 +22,4 @@ export { Topbar, type TopbarProps } from './molecules/topbar/topbar';
 export { PageHeader, type PageHeaderProps } from './molecules/page-header/page-header';
 export { Sidebar, type SidebarProps } from './molecules/sidebar/sidebar';
 export { SidebarDrawer, type SidebarDrawerProps } from './molecules/sidebar/sidebar-drawer';
+export { UserMenu, type UserMenuItem, type UserMenuProps } from './molecules/user-menu/user-menu';
