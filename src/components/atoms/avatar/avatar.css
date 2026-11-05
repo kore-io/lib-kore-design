@@ -1,0 +1,16 @@
+/* Avatar do DS v0.16: P 24 px (type.caption), M 32 px e G 40 px (type.label). */
+.kore-avatar {
+  @apply inline-flex shrink-0 items-center justify-center rounded-full bg-primary-tint text-primary-dark select-none;
+}
+
+.kore-avatar--sm {
+  @apply type-caption size-6;
+}
+
+.kore-avatar--md {
+  @apply type-label size-8;
+}
+
+.kore-avatar--lg {
+  @apply type-label size-10;
+}

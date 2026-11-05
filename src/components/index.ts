@@ -14,3 +14,5 @@ export { Radio, type RadioProps } from './atoms/radio/radio';
 export { Alert, type AlertProps, type AlertTone } from './atoms/alert/alert';
 export { Badge, type BadgeProps, type BadgeTone } from './atoms/badge/badge';
 export { Divider, type DividerOrientation, type DividerProps } from './atoms/divider/divider';
+export { Avatar, type AvatarProps, type AvatarSize } from './atoms/avatar/avatar';
+export { NavItem, type NavItemProps } from './atoms/nav-item/nav-item';
