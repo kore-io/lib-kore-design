@@ -97,4 +97,5 @@ React 19 é `peerDependency`. Os componentes ficam em `src/components/<atoms|mol
 - **Ícones**: Lucide com `strokeWidth={1.75}` (regra do Brand Kit), mesmo onde o Penpot mostra traço 2 ou 1,6 em instâncias.
 - **Date Field**: o Penpot não tem Foco nem Erro; o código usa os do Input (decisão 141).
 - **Placeholder**: `gray.700` em vez de `gray.500` (decisão 132).
+- **Nav Item Ativo**: negrito (700), como nas instâncias da Sidebar; o componente principal do Penpot tem 600 (decisão 144).
 - **Code Input em erro**: no Penpot, cada casa herda o ícone de alerta do Input, que não cabe com o dígito numa casa de 52 px; o código mostra só a borda de erro, e a mensagem fica com a tela.
