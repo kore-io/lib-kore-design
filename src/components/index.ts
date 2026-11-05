@@ -17,3 +17,4 @@ export { Divider, type DividerOrientation, type DividerProps } from './atoms/div
 export { Avatar, type AvatarProps, type AvatarSize } from './atoms/avatar/avatar';
 export { NavItem, type NavItemProps } from './atoms/nav-item/nav-item';
 export { Logo, type LogoProps, type LogoVariant } from './atoms/logo/logo';
+export { IconButton, type IconButtonProps } from './atoms/icon-button/icon-button';
