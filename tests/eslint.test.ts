@@ -38,8 +38,28 @@ ruleTester.run('kore/semantic-class-names', rule, {
       code: "joinClassNames({ names: ['kore-button', `kore-button--${size}`, invalid && 'kore-x--invalid', className] })",
     },
     { code: '<div id="flex" />' },
+    { code: "const cls = 'kore-card'; const el = <div className={cls} />;" },
+    { code: "let cls = 'flex'; cls = x; const el = <div className={cls} />;" },
+    { code: 'function F({ className }) { return <div className={className} />; }' },
+    { code: "const el = <div className={clsx('kore-card', open && 'kore-card--open')} />;" },
   ],
   invalid: [
+    {
+      code: "const cls = 'flex'; const el = <div className={cls} />;",
+      errors: [{ messageId: 'rejected', data: { name: 'flex' } }],
+    },
+    {
+      code: "const el = <div className={clsx('kore-card', 'bg-red-500')} />;",
+      errors: [{ messageId: 'rejected', data: { name: 'bg-red-500' } }],
+    },
+    {
+      code: "const el = <div className={`kore-card ${'mt-2'}`} />;",
+      errors: [{ messageId: 'rejected', data: { name: 'mt-2' } }],
+    },
+    {
+      code: "const el = <div className={`kore-card ${open ? 'kore-card--open' : 'hidden'}`} />;",
+      errors: [{ messageId: 'rejected', data: { name: 'hidden' } }],
+    },
     {
       code: '<div className="flex p-4" />',
       errors: [{ messageId: 'rejected' }, { messageId: 'rejected' }],
