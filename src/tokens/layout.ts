@@ -69,6 +69,37 @@ export const motion = {
 /** px; deslocamento das animações de entrada (`motion.distance`). */
 export const motionDistance = 8;
 
+/**
+ * Quadros-chave das animações do DS (02 · Motion). O drawer entra da esquerda e o fundo
+ * escurece por opacidade junto; com movimento reduzido, só a opacidade muda.
+ */
+export const motionKeyframes = {
+  'fade-in': { from: { opacity: '0' }, to: { opacity: '1' } },
+  'fade-out': { from: { opacity: '1' }, to: { opacity: '0' } },
+  'slide-in-left': { from: { transform: 'translateX(-100%)' }, to: { transform: 'translateX(0)' } },
+  'slide-out-left': {
+    from: { transform: 'translateX(0)' },
+    to: { transform: 'translateX(-100%)' },
+  },
+} as const;
+
+/**
+ * Animações prontas para o preset (`animate-<nome>`). Entrar usa a duração do
+ * componente; sair, "o mesmo, ao contrário, com a duração um passo abaixo". O
+ * movimento reduzido usa só opacidade em motion.base.
+ */
+export const motionAnimations = {
+  'drawer-in': { keyframes: 'slide-in-left', duration: 'slow' },
+  'drawer-out': { keyframes: 'slide-out-left', duration: 'base' },
+  'overlay-in': { keyframes: 'fade-in', duration: 'slow' },
+  'overlay-out': { keyframes: 'fade-out', duration: 'base' },
+  'reduced-in': { keyframes: 'fade-in', duration: 'base' },
+  'reduced-out': { keyframes: 'fade-out', duration: 'base' },
+} as const satisfies Record<
+  string,
+  { keyframes: keyof typeof motionKeyframes; duration: keyof typeof motion }
+>;
+
 /** Curva do Brand Kit (Movimento). */
 export const motionEasing = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
 

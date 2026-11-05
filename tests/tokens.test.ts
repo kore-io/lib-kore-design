@@ -6,6 +6,7 @@ import {
   fontFamilies,
   fontWeights,
   motion,
+  motionAnimations,
   motionDistance,
   overlayColor,
   radius,
@@ -136,6 +137,22 @@ describe('tokens espelham o Design System v0.16 do Penpot', () => {
       penpot['Bordas fracionárias dos componentes (fora de ícones)'],
     ).map(Number);
     expect([...fractionalBorderWidths]).toEqual(penpotWidths);
+  });
+
+  it('animações seguem os padrões da página de Motion', () => {
+    const patterns = penpot['02 · Motion (padrões)'];
+    expect(patterns['Drawer (Sidebar no celular e no tablet)']).toContain('motion.slow');
+    expect(motionAnimations['drawer-in']).toEqual({ keyframes: 'slide-in-left', duration: 'slow' });
+    expect(motionAnimations['overlay-in'].duration).toBe('slow');
+    // Sair: um passo abaixo (slow → base).
+    expect(motionAnimations['drawer-out']).toEqual({
+      keyframes: 'slide-out-left',
+      duration: 'base',
+    });
+    expect(motionAnimations['overlay-out'].duration).toBe('base');
+    expect(patterns['Movimento reduzido']).toContain('motion.base');
+    expect(motionAnimations['reduced-in']).toEqual({ keyframes: 'fade-in', duration: 'base' });
+    expect(motionAnimations['reduced-out']).toEqual({ keyframes: 'fade-out', duration: 'base' });
   });
 
   it('sombras', () => {

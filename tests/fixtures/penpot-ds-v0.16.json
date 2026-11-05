@@ -212,6 +212,11 @@
       "Group Row > Control"
     ]
   },
+  "02 · Motion (padrões)": {
+    "Drawer (Sidebar no celular e no tablet)": "Entra da esquerda; o fundo escurece por opacidade junto · motion.slow",
+    "Sair": "o mesmo, ao contrário, com a duração um passo abaixo",
+    "Movimento reduzido": "Só a opacidade muda, em motion.base"
+  },
   "Kore/Motion": {
     "motion.fast": 120,
     "motion.base": 200,
