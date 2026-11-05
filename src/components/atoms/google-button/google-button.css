@@ -1,0 +1,4 @@
+/* Google Button do DS v0.16: o Button secundário G com 12 px entre o logo e o texto. */
+.kore-google-button {
+  @apply gap-3;
+}

@@ -61,6 +61,7 @@ describe('CSS dos componentes (decisão 131: @apply no CSS, classes semânticas 
     expect(files.length).toBeGreaterThan(0);
     const css = await buildComponentsCss({ files, presetPath });
     expect(css).toMatch(/\.kore-button \{/);
+    expect(css).toMatch(/\.kore-google-button \{/);
   });
 
   it('utilitária fora do DS quebra o build', async () => {
