@@ -1,0 +1,12 @@
+/* Divider do DS v0.16: 1 px em gray.300. */
+.kore-divider {
+  @apply m-0 shrink-0 border-0 bg-gray-300;
+}
+
+.kore-divider--horizontal {
+  @apply h-px w-full;
+}
+
+.kore-divider--vertical {
+  @apply h-auto w-px self-stretch;
+}
