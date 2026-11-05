@@ -5,10 +5,17 @@ import axe from 'axe-core';
  * contraste fica de fora: o jsdom não calcula estilo, e o contraste dos tokens
  * é coberto em tests/contrast.test.ts.
  */
-export async function expectNoA11yViolations({ container }: { container: Element }) {
-  const { violations } = await axe.run(container, {
-    rules: { 'color-contrast': { enabled: false } },
-  });
+export async function expectNoA11yViolations({
+  container,
+  disabledRules = [],
+}: {
+  container: Element;
+  /** Regras desligadas com motivo no teste (ex.: `region` para conteúdo em portal). */
+  disabledRules?: string[];
+}) {
+  const rules: Record<string, { enabled: boolean }> = { 'color-contrast': { enabled: false } };
+  for (const rule of disabledRules) rules[rule] = { enabled: false };
+  const { violations } = await axe.run(container, { rules });
   if (violations.length > 0) {
     const list = violations.map(
       ({ id, nodes }) => `- ${id}: ${nodes.map((node) => node.html).join(' | ')}`,
