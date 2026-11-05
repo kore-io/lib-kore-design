@@ -21,6 +21,10 @@ Node.js 24 (`.nvmrc`) e pnpm 10 (`packageManager`).
 
 Commits em Conventional Commits (commitlint no `commit-msg`); lint-staged no `pre-commit`.
 
+## CI
+
+`.github/workflows/ci.yml`, completo no próprio repositório (decisão 145): roda em todo push, em qualquer branch, com o commitlint e, em seguida, `install --frozen-lockfile`, `format:check`, `lint`, `typecheck`, `test` e `build`. Um push novo cancela o anterior na mesma branch, menos em `homolog` e `production`.
+
 ## Tokens
 
 Os tokens espelham o **Design System v0.16** do Penpot (arquivo `Design system`). A fonte no código é `src/tokens/`; o teste `tests/tokens.test.ts` compara cada valor com `tests/fixtures/penpot-ds-v0.16.json`, os valores brutos lidos do Penpot. Ao subir a versão do DS: atualizar a fixture com o Penpot, rodar os testes e corrigir `src/tokens/`.
