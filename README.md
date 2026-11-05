@@ -25,6 +25,15 @@ Commits em Conventional Commits (commitlint no `commit-msg`); lint-staged no `pr
 
 `.github/workflows/ci.yml`, completo no próprio repositório (decisão 145): roda em todo push, em qualquer branch, com o commitlint e, em seguida, `install --frozen-lockfile`, `format:check`, `lint`, `typecheck`, `test` e `build`. Um push novo cancela o anterior na mesma branch, menos em `homolog` e `production`.
 
+### Publicação no GitHub Packages
+
+Com o CI verde, o job `publish` publica o pacote (decisão 145; regra em `scripts/release.ts`, com teste):
+
+- merge em `homolog`: pré-release `<versão>-homolog.<run>`, dist-tag `homolog` (`pnpm add @kore-io/design@homolog`);
+- merge em `production`: a versão do `package.json`, dist-tag `latest`, só se ainda não estiver publicada. Para lançar uma versão, suba o `version` no PR para `production`.
+
+Usa o `GITHUB_TOKEN` do workflow (`packages: write`); nada de token pessoal.
+
 ## Tokens
 
 Os tokens espelham o **Design System v0.16** do Penpot (arquivo `Design system`). A fonte no código é `src/tokens/`; o teste `tests/tokens.test.ts` compara cada valor com `tests/fixtures/penpot-ds-v0.16.json`, os valores brutos lidos do Penpot. Ao subir a versão do DS: atualizar a fixture com o Penpot, rodar os testes e corrigir `src/tokens/`.
