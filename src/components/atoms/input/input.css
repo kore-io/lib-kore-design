@@ -1,0 +1,9 @@
+/* Input do DS v0.16: o campo ocupa a caixa; o ícone de erro fica à direita. */
+.kore-input__field {
+  @apply h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-placeholder;
+  @apply disabled:cursor-not-allowed;
+}
+
+.kore-input__icon {
+  @apply size-6 shrink-0 text-danger-text;
+}
