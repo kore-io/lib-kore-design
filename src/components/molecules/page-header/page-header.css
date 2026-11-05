@@ -1,0 +1,29 @@
+/*
+ * Page Header do DS v0.16. Celular: título em display.md, ações embaixo dividindo a
+ * largura. Tablet: título em display.lg, ações embaixo. Computador: ações à direita,
+ * alinhadas pela base, com 24 px de distância. 4 px entre título e resumo; 12 px entre
+ * as ações.
+ */
+.kore-page-header {
+  @apply flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-6;
+}
+
+.kore-page-header__titles {
+  @apply flex min-w-0 flex-col gap-1;
+}
+
+.kore-page-header__title {
+  @apply type-display-md text-ink md:type-display-lg;
+}
+
+.kore-page-header__description {
+  @apply type-body-md text-gray-700;
+}
+
+.kore-page-header__actions {
+  @apply flex shrink-0 items-center gap-3;
+}
+
+.kore-page-header__actions > * {
+  @apply max-md:flex-1;
+}

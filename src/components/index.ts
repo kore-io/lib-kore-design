@@ -19,3 +19,4 @@ export { NavItem, type NavItemProps } from './atoms/nav-item/nav-item';
 export { Logo, type LogoProps, type LogoVariant } from './atoms/logo/logo';
 export { IconButton, type IconButtonProps } from './atoms/icon-button/icon-button';
 export { Topbar, type TopbarProps } from './molecules/topbar/topbar';
+export { PageHeader, type PageHeaderProps } from './molecules/page-header/page-header';
