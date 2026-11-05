@@ -90,6 +90,36 @@ describe('CodeInput', () => {
     expect(cells()[1]).toHaveFocus();
   });
 
+  it('Gboard: o keydown 229 (Unidentified) não apaga; o change vazio que vem depois apaga', () => {
+    const onValueChange = vi.fn();
+    renderCode({ defaultValue: '481', onValueChange });
+    const third = cells()[2] as HTMLElement;
+    third.focus();
+    fireEvent.keyDown(third, { key: 'Unidentified', keyCode: 229 });
+    expect(onValueChange).not.toHaveBeenCalled();
+    fireEvent.change(third, { target: { value: '' } });
+    expect(onValueChange).toHaveBeenLastCalledWith({ value: '48' });
+    expect(third).toHaveFocus();
+  });
+
+  it('Gboard numa casa vazia: keydown 229 e beforeinput de apagar apagam a anterior', () => {
+    const onValueChange = vi.fn();
+    renderCode({ defaultValue: '48', onValueChange });
+    const empty = cells()[2] as HTMLElement;
+    empty.focus();
+    fireEvent.keyDown(empty, { key: 'Unidentified', keyCode: 229 });
+    expect(onValueChange).not.toHaveBeenCalled();
+    empty.dispatchEvent(
+      new InputEvent('beforeinput', {
+        inputType: 'deleteContentBackward',
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    expect(onValueChange).toHaveBeenLastCalledWith({ value: '4' });
+    expect(cells()[1]).toHaveFocus();
+  });
+
   it('beforeinput numa casa preenchida segue para o change', () => {
     const onValueChange = vi.fn();
     renderCode({ defaultValue: '48', onValueChange });
