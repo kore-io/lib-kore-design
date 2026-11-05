@@ -1,0 +1,28 @@
+/*
+ * Radio do DS v0.16: controle de 20 px, borda de 1,5 px (decisão 140); marcado,
+ * borda de 2 px e ponto de 10 px em primary; desabilitado a 45%. A área de toque
+ * cresce 12 px para cima e para baixo, até os 44 px do Brand Kit.
+ */
+.kore-radio {
+  @apply relative inline-flex cursor-pointer items-center gap-2.5;
+  @apply type-body-md text-ink;
+  @apply before:absolute before:inset-x-0 before:-inset-y-3;
+  @apply has-disabled:cursor-not-allowed has-disabled:opacity-45;
+}
+
+.kore-radio__input {
+  @apply sr-only;
+}
+
+.kore-radio__control {
+  @apply flex size-5 shrink-0 items-center justify-center rounded-full border-1.5 border-input bg-white;
+  @apply after:hidden after:size-2.5 after:rounded-full after:bg-primary;
+}
+
+.kore-radio__input:checked + .kore-radio__control {
+  @apply border-2 border-primary after:block;
+}
+
+.kore-radio__input:focus-visible + .kore-radio__control {
+  @apply shadow-focus-ring outline-2 outline-paper;
+}
