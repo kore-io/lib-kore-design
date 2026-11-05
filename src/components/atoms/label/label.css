@@ -1,0 +1,8 @@
+/* Label do DS v0.16 (03 · Atoms): Padrão e Opcional, 4 px entre o rótulo e a marca. */
+.kore-label {
+  @apply type-label inline-flex items-center gap-1 text-ink;
+}
+
+.kore-label__optional {
+  @apply type-body-md text-gray-700;
+}

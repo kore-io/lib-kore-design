@@ -106,5 +106,8 @@
       "prettier --write"
     ],
     "*.{json,md,yml}": "prettier --write"
+  },
+  "dependencies": {
+    "lucide-react": "^1.69.0"
   }
 }
