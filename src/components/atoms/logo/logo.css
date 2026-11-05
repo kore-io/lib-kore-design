@@ -1,0 +1,40 @@
+/*
+ * Logo Kore do DS v0.16: 86,4 x 32 px. Vinho: símbolo primary.dark com o "K" e o ponto
+ * em branco, wordmark primary.dark. Branco: símbolo branco com o "K" e o ponto em
+ * primary.dark, wordmark branco.
+ */
+.kore-logo {
+  @apply block h-8 w-auto shrink-0;
+}
+
+.kore-logo--wine .kore-logo__symbol {
+  @apply fill-primary-dark;
+}
+
+.kore-logo--wine .kore-logo__mark {
+  @apply stroke-white;
+}
+
+.kore-logo--wine .kore-logo__dot {
+  @apply fill-white;
+}
+
+.kore-logo--wine .kore-logo__wordmark {
+  @apply stroke-primary-dark;
+}
+
+.kore-logo--white .kore-logo__symbol {
+  @apply fill-white;
+}
+
+.kore-logo--white .kore-logo__mark {
+  @apply stroke-primary-dark;
+}
+
+.kore-logo--white .kore-logo__dot {
+  @apply fill-primary-dark;
+}
+
+.kore-logo--white .kore-logo__wordmark {
+  @apply stroke-white;
+}
