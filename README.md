@@ -55,6 +55,7 @@ O preset importa o `tokens.css` e:
 - fontes: `font-display`, `font-body`, `font-site-display`, `font-site-body`;
 - texto: `text-<estilo>` (tamanho, altura de linha e peso) e `type-<estilo>` (o estilo completo, com a família), para `display-xl`, `display-lg`, `display-md`, `display-sm`, `heading`, `body-lg`, `body-md`, `label`, `label-lg`, `caption`, `overline`, `number` e `link`;
 - breakpoints só `md:` (768 px) e `lg:` (1024 px), como no Brand Kit; o `html` usa a fonte do corpo (`--default-font-family`);
+- `border-1.5`: borda de 1,5 px dos componentes do DS (erro dos campos, controles desmarcados), que a escala inteira do Tailwind não tem (decisão 140);
 - `rounded-sm|md|lg|xl|full`, `shadow-sm|md|lg|focus-ring`, `ease-kore`, e `transition` com 200 ms (`motion.base`) e a curva do DS por padrão. Os tempos `--kore-motion-fast|base|slow` servem em `duration-(--kore-motion-fast)`.
 
 ## CSS dos componentes (decisão 131)

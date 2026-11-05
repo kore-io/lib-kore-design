@@ -1,6 +1,7 @@
 import { coreColors } from '../tokens/core';
 import {
   formatShadow,
+  fractionalBorderWidths,
   motion,
   motionDistance,
   motionEasing,
@@ -23,6 +24,11 @@ type Declarations = Record<string, string | number>;
 
 export function pxToRem({ px }: { px: number }): string {
   return `${Number((px / 16).toFixed(4))}rem`;
+}
+
+/** `1.5` → `1-5`, para nome de variável CSS. */
+export function borderWidthName({ px }: { px: number }): string {
+  return String(px).replace('.', '-');
 }
 
 export function toKebab({ name }: { name: string }): string {
@@ -89,6 +95,9 @@ export function coreDeclarations(): Declarations {
     out[`--kore-motion-${name}`] = `${ms}ms`;
   }
   out['--kore-motion-distance'] = `${motionDistance}px`;
+  for (const px of fractionalBorderWidths) {
+    out[`--kore-border-${borderWidthName({ px })}`] = `${px}px`;
+  }
   out['--kore-ease'] = motionEasing;
   return out;
 }

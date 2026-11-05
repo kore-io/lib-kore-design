@@ -109,4 +109,11 @@ describe('preset do Tailwind v4 (tailwind.css)', () => {
     expect(css).toContain('@media (width >= 64rem)');
     expect(css).not.toMatch(/40rem|80rem|96rem/);
   });
+
+  it('border-1.5: borda fracionária do DS (decisão 140)', () => {
+    const css = generate(['border-1.5', 'border', 'border-2']);
+    expect(css).toMatch(/\.border-1\\\.5 \{[^}]*border-width: var\(--kore-border-1-5\)/);
+    expect(css).toContain('--kore-border-1-5: 1.5px;');
+    expect(css).toMatch(/\.border-2 \{[^}]*border-width: 2px/);
+  });
 });

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import penpot from './fixtures/penpot-ds-v0.16.json';
 import {
   coreColors,
+  fractionalBorderWidths,
   fontFamilies,
   fontWeights,
   motion,
@@ -128,6 +129,13 @@ describe('tokens espelham o Design System v0.16 do Penpot', () => {
       'motion.slow': motion.slow,
       'motion.distance': motionDistance,
     }).toEqual(penpot['Kore/Motion']);
+  });
+
+  it('bordas fracionárias dos componentes viram utilitárias do preset (decisão 140)', () => {
+    const penpotWidths = Object.keys(
+      penpot['Bordas fracionárias dos componentes (fora de ícones)'],
+    ).map(Number);
+    expect([...fractionalBorderWidths]).toEqual(penpotWidths);
   });
 
   it('sombras', () => {
