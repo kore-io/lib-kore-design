@@ -1,0 +1,19 @@
+.kore-sample-button {
+  @apply type-label rounded-md bg-primary px-4 text-primary-foreground transition;
+}
+
+.kore-sample-button:hover {
+  @apply bg-primary-hover;
+}
+
+.kore-sample-button--secondary {
+  @apply bg-secondary text-secondary-foreground;
+}
+
+.kore-sample-button:focus-visible {
+  @apply shadow-focus-ring md:px-6;
+}
+
+.kore-sample-button--site {
+  @apply bg-(--site-primary) text-(--kore-white);
+}
