@@ -1,0 +1,5 @@
+@import './fora-do-ds.css';
+
+@theme {
+  --color-x: red;
+}

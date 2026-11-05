@@ -17,3 +17,7 @@
 .kore-sample-button--site {
   @apply bg-(--site-primary) text-(--kore-white);
 }
+
+.kore-sample-button {
+  -webkit-tap-highlight-color: transparent;
+}
