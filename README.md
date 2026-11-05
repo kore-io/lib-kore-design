@@ -91,3 +91,9 @@ export default {
 ## Componentes (React)
 
 React 19 é `peerDependency`. Os componentes ficam em `src/components/<atoms|molecules>/<componente>/`, com o `.tsx`, o `.css` (só `@apply`, decisão 131) e o teste ao lado (`*.test.tsx`, Vitest + Testing Library em jsdom). Todo teste de componente roda o axe-core com `expectNoA11yViolations` (`tests/a11y.ts`); o contraste é coberto pelos testes dos tokens.
+
+### Divergências registradas em relação ao Penpot
+
+- **Ícones**: Lucide com `strokeWidth={1.75}` (regra do Brand Kit), mesmo onde o Penpot mostra traço 2 ou 1,6 em instâncias.
+- **Date Field**: o Penpot não tem Foco nem Erro; o código usa os do Input (decisão 141).
+- **Placeholder**: `gray.700` em vez de `gray.500` (decisão 132).
