@@ -9,3 +9,4 @@ export { Label, type LabelProps } from './atoms/label/label';
 export { Input, type InputProps } from './atoms/input/input';
 export { Select, type SelectProps } from './atoms/select/select';
 export { DateField, type DateFieldProps } from './atoms/date-field/date-field';
+export { CodeInput, type CodeInputProps } from './atoms/code-input/code-input';
