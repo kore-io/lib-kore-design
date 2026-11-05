@@ -65,6 +65,11 @@ describe('CSS dos componentes (decisão 131: @apply no CSS, classes semânticas 
     const css = await buildComponentsCss({ files, presetPath });
     expect(css).toMatch(/\.kore-button \{/);
     expect(css).toMatch(/\.kore-google-button \{/);
+    // Nav Item: ícone gray.700 e, no Ativo, primary.dark (lido do Penpot).
+    expect(css).toMatch(/\.kore-nav-item__icon \{[^}]*color: var\(--kore-gray-700\)/);
+    expect(css).toMatch(
+      /\.kore-nav-item--current \.kore-nav-item__icon \{[^}]*color: var\(--kore-primary-dark\)/,
+    );
   });
 
   it('utilitária fora do DS quebra o build', async () => {
