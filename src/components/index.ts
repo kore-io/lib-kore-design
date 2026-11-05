@@ -23,3 +23,4 @@ export { PageHeader, type PageHeaderProps } from './molecules/page-header/page-h
 export { Sidebar, type SidebarProps } from './molecules/sidebar/sidebar';
 export { SidebarDrawer, type SidebarDrawerProps } from './molecules/sidebar/sidebar-drawer';
 export { UserMenu, type UserMenuItem, type UserMenuProps } from './molecules/user-menu/user-menu';
+export { EmptyState, type EmptyStateProps } from './molecules/empty-state/empty-state';
