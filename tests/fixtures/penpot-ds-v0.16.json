@@ -216,6 +216,7 @@
     "Drawer (Sidebar no celular e no tablet)": "Entra da esquerda; o fundo escurece por opacidade junto · motion.slow",
     "Sair": "o mesmo, ao contrário, com a duração um passo abaixo",
     "Menu ⋮, popover, tooltip": "Entra com opacidade e 4 px de deslocamento a partir do gatilho; sai em motion.fast · motion.base",
+    "Toast": "Entra de baixo com 8 px; sai sozinho depois de 5 s, por opacidade · motion.base",
     "Modal (desktop) e folha inferior (celular)": "Modal: opacidade e escala 0,96 → 1. Folha: sobe da borda de baixo · motion.slow",
     "Movimento reduzido": "Só a opacidade muda, em motion.base"
   },
