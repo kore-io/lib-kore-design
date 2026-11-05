@@ -116,4 +116,19 @@ describe('preset do Tailwind v4 (tailwind.css)', () => {
     expect(css).toContain('--kore-border-1-5: 1.5px;');
     expect(css).toMatch(/\.border-2 \{[^}]*border-width: 2px/);
   });
+
+  it('animações do DS: drawer, fundo e movimento reduzido, com os quadros-chave', () => {
+    const css = generate([
+      'animate-drawer-in',
+      'animate-overlay-out',
+      'motion-reduce:animate-reduced-in',
+    ]);
+    expect(css).toMatch(/\.animate-drawer-in \{[^}]*animation: var\(--animate-drawer-in\)/);
+    expect(css).toContain(
+      '--animate-drawer-in: kore-slide-in-left var(--kore-motion-slow) var(--kore-ease) both;',
+    );
+    expect(css).toContain('@keyframes kore-slide-in-left');
+    expect(css).toContain('@keyframes kore-fade-out');
+    expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)/);
+  });
 });

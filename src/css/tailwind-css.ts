@@ -1,5 +1,12 @@
 import { coreColors } from '../tokens/core';
-import { breakpoints, fractionalBorderWidths, radius, shadows } from '../tokens/layout';
+import {
+  breakpoints,
+  fractionalBorderWidths,
+  motionAnimations,
+  motionKeyframes,
+  radius,
+  shadows,
+} from '../tokens/layout';
 import { semanticColorRefs } from '../tokens/semantic';
 import { siteBackgrounds, siteColors, siteDefaults } from '../tokens/site';
 import { typeStyles } from '../tokens/typography';
@@ -95,6 +102,22 @@ export function borderUtilities(): string[] {
   );
 }
 
+/** Animações do DS (`animate-drawer-in`…) e os quadros-chave, num `@theme` próprio. */
+export function motionTheme(): string {
+  const animations = Object.entries(motionAnimations).map(
+    ([name, { keyframes, duration }]) =>
+      `  --animate-${name}: kore-${keyframes} var(--kore-motion-${duration}) var(--kore-ease) both;`,
+  );
+  const keyframes = Object.entries(motionKeyframes).map(([name, { from, to }]) => {
+    const frame = (label: string, declarations: Record<string, string>) =>
+      `    ${label} {\n${Object.entries(declarations)
+        .map(([property, value]) => `      ${property}: ${value};`)
+        .join('\n')}\n    }`;
+    return `  @keyframes kore-${name} {\n${frame('from', from)}\n${frame('to', to)}\n  }`;
+  });
+  return `@theme {\n${[...animations, ...keyframes].join('\n')}\n}`;
+}
+
 /**
  * Preset do Tailwind v4 (CSS). Uso no app:
  *   @import 'tailwindcss';
@@ -126,6 +149,7 @@ export function buildTailwindCss(): string {
       },
     }),
     block({ selector: '@theme inline', declarations: themeDeclarations() }),
+    motionTheme(),
     ...typeUtilities(),
     ...borderUtilities(),
   ].join('\n\n')}\n`;
