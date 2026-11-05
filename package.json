@@ -26,6 +26,7 @@
       "import": "./dist/index.js"
     },
     "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -38,6 +39,14 @@
     "format:check": "prettier --check .",
     "prepare": "husky"
   },
+  "peerDependencies": {
+    "tailwindcss": "^4.1.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=24"
   },
@@ -45,12 +54,14 @@
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "@eslint/js": "^10.0.1",
+    "@tailwindcss/node": "^4.3.4",
     "@types/node": "^26.6.6",
     "eslint": "^10.14.0",
     "globals": "^17.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
+    "tailwindcss": "^4.3.4",
     "tsup": "^9.0.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
