@@ -43,8 +43,10 @@
     "prepare": "husky"
   },
   "peerDependencies": {
-    "tailwindcss": "^4.1.0",
-    "stylelint": "^18.0.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stylelint": "^18.0.0",
+    "tailwindcss": "^4.1.0"
   },
   "peerDependenciesMeta": {
     "tailwindcss": {
@@ -62,13 +64,24 @@
     "@commitlint/config-conventional": "^21.2.4",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/node": "^4.3.4",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "axe-core": "^4.14.0",
     "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.14.0",
     "husky": "^9.1.7",
+    "jsdom": "^31.0.0",
     "lint-staged": "^17.6.0",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "stylelint": "^18.0.0",
     "tailwindcss": "^4.3.4",
     "tsup": "^9.0.0",

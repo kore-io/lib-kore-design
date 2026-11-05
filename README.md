@@ -86,3 +86,7 @@ export default {
 - `kore/apply-ds-only`: no `@apply`, nada de valor ou variante arbitrária (`bg-[#f00]`, `[&>svg]:p-2`) nem variável fora de `--kore-*`/`--site-*`.
 - `kore/declaration-ds-only`: declaração direta (fora do `@apply`) só para propriedade sem utilitária equivalente, listada em `stylelint/rules.js` (`DIRECT_PROPERTIES`; propriedade nova entra por PR), e com valor só de palavras-chave ou `var(--kore-*|--site-*)`. Recusa cor literal (inclusive nomeada), número com ou sem unidade e `var()` fora do DS.
 - `kore/at-rule-ds-only`: só `@apply`, `@media`, `@supports`, `@container` e `@keyframes`. Recusa `@import`, `@theme`, `@utility`, `@plugin`, `@config`, `@source`, `@tailwind`, `@layer` e as demais, que trariam CSS de fora ou mexeriam no tema. Dentro de `@keyframes` valem as mesmas regras de declaração.
+
+## Componentes (React)
+
+React 19 é `peerDependency`. Os componentes ficam em `src/components/<atoms|molecules>/<componente>/`, com o `.tsx`, o `.css` (só `@apply`, decisão 131) e o teste ao lado (`*.test.tsx`, Vitest + Testing Library em jsdom). Todo teste de componente roda o axe-core com `expectNoA11yViolations` (`tests/a11y.ts`); o contraste é coberto pelos testes dos tokens.
