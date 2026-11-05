@@ -20,3 +20,5 @@ export { Logo, type LogoProps, type LogoVariant } from './atoms/logo/logo';
 export { IconButton, type IconButtonProps } from './atoms/icon-button/icon-button';
 export { Topbar, type TopbarProps } from './molecules/topbar/topbar';
 export { PageHeader, type PageHeaderProps } from './molecules/page-header/page-header';
+export { Sidebar, type SidebarProps } from './molecules/sidebar/sidebar';
+export { SidebarDrawer, type SidebarDrawerProps } from './molecules/sidebar/sidebar-drawer';

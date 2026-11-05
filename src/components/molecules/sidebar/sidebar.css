@@ -1,0 +1,51 @@
+/*
+ * Sidebar do DS v0.16. Computador: 256 px, fundo background, linha à direita em border,
+ * logo numa faixa de 72 px com 20 px de respiro, navegação com 12 px nas laterais e 4 px
+ * entre os itens. Celular e tablet: drawer de 304 px com shadow.lg, faixa do logo de
+ * 80 px com o botão de fechar, sobre o fundo overlay. Entra da esquerda (motion.slow) e
+ * sai ao contrário (motion.base); com movimento reduzido, só opacidade.
+ */
+.kore-sidebar {
+  @apply hidden h-full w-64 shrink-0 flex-col gap-2 border-r border-border bg-background pb-6 lg:flex;
+}
+
+.kore-sidebar__logo {
+  @apply flex h-18 shrink-0 items-center p-5;
+}
+
+.kore-sidebar__nav,
+.kore-drawer__nav {
+  @apply flex min-h-0 flex-col gap-1 overflow-y-auto px-3;
+}
+
+.kore-drawer__overlay {
+  @apply fixed inset-0 z-50 bg-overlay;
+}
+
+.kore-drawer__overlay[data-state='open'] {
+  @apply animate-overlay-in motion-reduce:animate-reduced-in;
+}
+
+.kore-drawer__overlay[data-state='closed'] {
+  @apply animate-overlay-out motion-reduce:animate-reduced-out;
+}
+
+.kore-drawer {
+  @apply fixed inset-y-0 left-0 z-50 flex w-76 max-w-full flex-col gap-2 bg-background pb-6 shadow-lg outline-none;
+}
+
+.kore-drawer[data-state='open'] {
+  @apply animate-drawer-in motion-reduce:animate-reduced-in;
+}
+
+.kore-drawer[data-state='closed'] {
+  @apply animate-drawer-out motion-reduce:animate-reduced-out;
+}
+
+.kore-drawer__title {
+  @apply sr-only;
+}
+
+.kore-drawer__header {
+  @apply flex h-20 shrink-0 items-center justify-between py-5 pr-3 pl-5;
+}
