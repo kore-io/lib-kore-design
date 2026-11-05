@@ -21,6 +21,15 @@ import {
 
 const PENPOT_REF = /^\{color\.(.+)\}$/;
 
+/** Divergências aceitas em relação ao Penpot, com o valor do Penpot e o motivo. */
+const SEMANTIC_DIVERGENCES: Record<string, { penpot: string; code: string; reason: string }> = {
+  placeholder: {
+    penpot: 'gray.500',
+    code: 'gray.700',
+    reason: 'decisão 132: placeholder com 4,5:1 (WCAG 1.4.3)',
+  },
+};
+
 function penpotRefToPath({ ref }: { ref: string }): string {
   const match = PENPOT_REF.exec(ref);
   if (!match?.[1]) throw new Error(`Referência inválida: ${ref}`);
@@ -57,8 +66,10 @@ describe('tokens espelham o Design System v0.16 do Penpot', () => {
     const { 'color.overlay': overlay, ...refs } = penpot['Kore/Semantic'];
     expect(Object.keys(semanticColorRefs).sort()).toEqual(Object.keys(refs).sort());
     for (const [name, ref] of Object.entries(refs)) {
+      const divergence = SEMANTIC_DIVERGENCES[name];
+      expect(penpotRefToPath({ ref }), name).toBe(divergence?.penpot ?? penpotRefToPath({ ref }));
       expect(semanticColorRefs[name as keyof typeof semanticColorRefs], name).toBe(
-        penpotRefToPath({ ref }),
+        divergence?.code ?? penpotRefToPath({ ref }),
       );
     }
     expect(overlayColor).toBe(overlay);

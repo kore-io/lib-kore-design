@@ -27,6 +27,10 @@ describe('contraste WCAG AA (texto normal, 4,5:1)', () => {
     ['secondary-foreground', 'secondary'],
     ['muted-foreground', 'muted'],
     ['muted-foreground', 'background'],
+    // Campos têm fundo branco (`color.white` = `card`); desabilitados, `muted`.
+    ['placeholder', 'card'],
+    ['placeholder', 'background'],
+    ['placeholder', 'muted'],
     ['accent-foreground', 'accent'],
     ['destructive-foreground', 'destructive'],
     ['destructive-foreground', 'destructive-hover'],
@@ -58,5 +62,13 @@ describe('contraste WCAG AA (texto normal, 4,5:1)', () => {
         expect(contrast({ foreground, background })).toBeGreaterThanOrEqual(AA_TEXT);
       }
     }
+  });
+
+  it('placeholder usa o cinza mais claro da escala que passa no campo (decisão 132)', () => {
+    const lighterGrays = (['500', '600'] as const).map((step) => coreColors.gray[step]);
+    for (const gray of lighterGrays) {
+      expect(contrast({ foreground: gray, background: semanticColors.card })).toBeLessThan(AA_TEXT);
+    }
+    expect(semanticColors.placeholder).toBe(coreColors.gray[700]);
   });
 });
