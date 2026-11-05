@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
-import type { MouseEvent, ReactNode } from 'react';
+import { useEffect, type MouseEvent, type ReactNode } from 'react';
+import { useMediaQuery } from '../../../lib/use-media-query';
 import { IconButton } from '../../atoms/icon-button/icon-button';
 
 export interface SidebarDrawerProps {
@@ -32,6 +33,12 @@ export function SidebarDrawer({
   navLabel,
   children,
 }: SidebarDrawerProps) {
+  // A partir de 1024 px a Sidebar fixa assume: o drawer aberto fecharia sobre ela.
+  const isDesktop = useMediaQuery({ query: '(min-width: 64rem)', fallback: false });
+  useEffect(() => {
+    if (isDesktop && open) onOpenChange({ open: false });
+  }, [isDesktop, open, onOpenChange]);
+
   function closeOnNavigation(event: MouseEvent<HTMLElement>) {
     if ((event.target as HTMLElement).closest('a')) onOpenChange({ open: false });
   }
