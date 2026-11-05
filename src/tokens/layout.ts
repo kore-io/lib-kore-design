@@ -52,6 +52,13 @@ export function formatShadow({ shadow }: { shadow: Shadow }): string {
   return `${px(offsetX)} ${px(offsetY)} ${px(blur)} ${px(spread)} ${color}`;
 }
 
+/**
+ * Bordas fracionárias dos componentes do DS (decisão 140), px. O Penpot usa 1,5 px
+ * no erro dos campos e nos controles desmarcados (Radio, Checkbox); a escala do
+ * Tailwind só tem inteiros, então o preset cria `border-1.5`.
+ */
+export const fractionalBorderWidths = [1.5] as const;
+
 /** ms */
 export const motion = {
   fast: 120,

@@ -21,3 +21,7 @@
 .kore-sample-button {
   -webkit-tap-highlight-color: transparent;
 }
+
+.kore-sample-button--error {
+  @apply border-1.5 border-danger-text;
+}

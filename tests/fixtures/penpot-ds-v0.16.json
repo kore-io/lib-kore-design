@@ -200,6 +200,18 @@
     "shadow.lg": { "x": 0, "y": 12, "blur": 32, "spread": 0, "color": "rgba(36,26,30,0.12)" },
     "focus-ring": { "x": 0, "y": 0, "blur": 0, "spread": 5, "color": "{color.primary.base}" }
   },
+  "Bordas fracionárias dos componentes (fora de ícones)": {
+    "1.5": [
+      "Input {Erro}",
+      "Code Input {Erro}",
+      "Select {Erro}",
+      "Radio {Desmarcado}",
+      "Checkbox {Desmarcado}",
+      "File Upload {Vazio}",
+      "Group Table Header > Control",
+      "Group Row > Control"
+    ]
+  },
   "Kore/Motion": {
     "motion.fast": 120,
     "motion.base": 200,

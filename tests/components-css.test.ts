@@ -44,6 +44,9 @@ describe('CSS dos componentes (decisão 131: @apply no CSS, classes semânticas 
       /\.kore-sample-button--secondary \{[^}]*background-color: var\(--secondary\)/,
     );
     expect(css).toContain('var(--kore-shadow-focus-ring)');
+    expect(css).toMatch(
+      /\.kore-sample-button--error \{[^}]*border-width: var\(--kore-border-1-5\)/,
+    );
     expect(css).toContain('@media (width >= 48rem)');
     expect(css).toMatch(
       /\.kore-sample-button--site \{[^}]*background-color: var\(--site-primary\)/,

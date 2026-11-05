@@ -1,10 +1,10 @@
 import { coreColors } from '../tokens/core';
-import { breakpoints, radius, shadows } from '../tokens/layout';
+import { breakpoints, fractionalBorderWidths, radius, shadows } from '../tokens/layout';
 import { semanticColorRefs } from '../tokens/semantic';
 import { siteBackgrounds, siteColors, siteDefaults } from '../tokens/site';
 import { typeStyles } from '../tokens/typography';
 import { DESIGN_SYSTEM_VERSION } from '../tokens';
-import { flatten, pxToRem, toKebab } from './tokens-css';
+import { borderWidthName, flatten, pxToRem, toKebab } from './tokens-css';
 
 type Declarations = Record<string, string>;
 
@@ -82,6 +82,19 @@ export function typeUtilities(): string[] {
   });
 }
 
+/** `border-1.5` (decisão 140): borda do DS que a escala inteira do Tailwind não tem. */
+export function borderUtilities(): string[] {
+  return fractionalBorderWidths.map((px) =>
+    block({
+      selector: `@utility border-${px}`,
+      declarations: {
+        'border-style': 'var(--tw-border-style)',
+        'border-width': `var(--kore-border-${borderWidthName({ px })})`,
+      },
+    }),
+  );
+}
+
 /**
  * Preset do Tailwind v4 (CSS). Uso no app:
  *   @import 'tailwindcss';
@@ -114,5 +127,6 @@ export function buildTailwindCss(): string {
     }),
     block({ selector: '@theme inline', declarations: themeDeclarations() }),
     ...typeUtilities(),
+    ...borderUtilities(),
   ].join('\n\n')}\n`;
 }
