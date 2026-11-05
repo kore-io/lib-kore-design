@@ -1,5 +1,8 @@
 {
   "_source": "Penpot, arquivo Design system (24d9d841-759d-81bc-8008-b2baa50d6c08), lido pelo MCP em 05/11/2026. Valores brutos (antes de resolver).",
+  "_divergencias": {
+    "Kore/Semantic.placeholder": "No código é {color.gray.700}, não {color.gray.500}: placeholder precisa de 4,5:1 (WCAG 1.4.3, decisão 132). Ver SEMANTIC_DIVERGENCES em tests/tokens.test.ts."
+  },
   "Kore/Core": {
     "color.primary.dark": "#74233D",
     "color.primary.darker": "#5C1A30",

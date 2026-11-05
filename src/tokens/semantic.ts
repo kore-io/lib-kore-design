@@ -27,7 +27,12 @@ export const semanticColorRefs = {
   border: 'gray.300',
   input: 'gray.600',
   ring: 'primary.base',
-  placeholder: 'gray.500',
+  /**
+   * Diverge do Penpot (`gray.500`, 3,16:1 no campo branco): texto de placeholder
+   * precisa de 4,5:1 (WCAG 1.4.3, decisão 132), e `gray.700` é o cinza mais
+   * claro da escala que passa.
+   */
+  placeholder: 'gray.700',
 } as const;
 
 /** `color.overlay`: Tinta com 40% (decisão 98), fundo de modal e drawer. */
