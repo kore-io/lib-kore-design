@@ -1,0 +1,46 @@
+/*
+ * Toast do DS v0.16: cartão branco, borda gray.300, raio lg, shadow.md, 12/14 px de
+ * respiro e 12 px entre o ícone (24 px: success.text ou danger.text), o texto em body.md
+ * e o X de 12 px em gray.700 (área de toque de 44 px). No topo, centralizado.
+ */
+.kore-toast-viewport {
+  @apply pointer-events-none fixed inset-x-0 top-4 z-50 flex list-none flex-col items-center gap-2 px-4 outline-none;
+}
+
+.kore-toast {
+  @apply pointer-events-auto flex max-w-full items-center gap-3 rounded-lg border border-gray-300 bg-white px-3.5 py-3 shadow-md;
+}
+
+.kore-toast[data-state='open'] {
+  @apply animate-toast-in motion-reduce:animate-reduced-in;
+}
+
+.kore-toast[data-state='closed'] {
+  @apply animate-toast-out motion-reduce:animate-reduced-out;
+}
+
+.kore-toast__icon {
+  @apply size-6 shrink-0;
+}
+
+.kore-toast--success .kore-toast__icon {
+  @apply text-success-text;
+}
+
+.kore-toast--danger .kore-toast__icon {
+  @apply text-danger-text;
+}
+
+.kore-toast__message {
+  @apply type-body-md min-w-0 flex-1 text-ink;
+}
+
+.kore-toast__close {
+  @apply relative flex size-3 shrink-0 cursor-pointer items-center justify-center text-gray-700;
+  @apply after:absolute after:-inset-4;
+  @apply focus-visible:rounded-sm focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
+}
+
+.kore-toast__close > svg {
+  @apply size-full;
+}
