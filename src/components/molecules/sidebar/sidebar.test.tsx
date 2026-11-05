@@ -2,7 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { LayoutDashboard, Users } from 'lucide-react';
 import { useState } from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { act } from 'react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { expectNoA11yViolations } from '../../../../tests/a11y';
 import { Logo } from '../../atoms/logo/logo';
 import { NavItem } from '../../atoms/nav-item/nav-item';
@@ -110,4 +111,36 @@ describe('SidebarDrawer', () => {
     await user.click(screen.getByRole('button', { name: 'Abrir menu' }));
     await expectNoA11yViolations({ container: document.body });
   });
+
+  it('fecha sozinho quando a tela chega a 1024 px (a Sidebar fixa assume)', async () => {
+    const user = userEvent.setup();
+    let notify = () => {};
+    let desktop = false;
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        get matches() {
+          return desktop;
+        },
+        media: query,
+        addEventListener: (_event: string, listener: () => void) => {
+          notify = listener;
+        },
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const onOpenChange = vi.fn();
+    render(<DrawerHarness onOpenChange={onOpenChange} />);
+    await user.click(screen.getByRole('button', { name: 'Abrir menu' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    desktop = true;
+    act(() => notify());
+    expect(onOpenChange).toHaveBeenLastCalledWith({ open: false });
+    await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+  });
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
 });
