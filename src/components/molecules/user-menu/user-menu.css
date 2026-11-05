@@ -7,7 +7,9 @@
  * Escolha do código, sem par no Penpot: 8 px (space.2) entre o gatilho e o popover.
  */
 .kore-user-menu__trigger {
-  @apply inline-flex h-10 shrink-0 items-center gap-2 rounded-full p-1 text-ink transition md:pr-2;
+  @apply relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full p-1 text-ink transition md:pr-2;
+  /* Área de toque 2 px maior em cada lado: dos 40 aos 44 px do Brand Kit (decisão 158). */
+  @apply after:absolute after:-inset-0.5;
   @apply focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
 }
 
