@@ -2,6 +2,12 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join, relative, sep } from 'node:path';
 import { compile } from '@tailwindcss/node';
+import postcss from 'postcss';
+import {
+  findApplyViolations,
+  findAtRuleViolation,
+  findDeclarationViolation,
+} from '../../stylelint/rules.js';
 
 /** Ordem do Atomic leve (ADR): as moléculas vêm depois dos átomos e podem sobrescrevê-los. */
 const ATOMIC_LEVELS = ['atoms', 'molecules'] as const;
@@ -40,25 +46,31 @@ export function listComponentStyles({ root }: { root: string }): string[] {
   return ATOMIC_LEVELS.flatMap((level) => listCssFiles({ dir: join(root, level) }));
 }
 
-/** Só variáveis do DS valem como valor entre parênteses: `bg-(--kore-primary-base)`. */
-const DS_VARIABLE = /^--(kore|site)-[\w-]+$/;
-
 /**
- * Recusa no `@apply` o que contorna o DS: valor ou variante arbitrária (`bg-[#f00]`,
- * `text-[13px]`, `[&>svg]:…`) e variável que não seja `--kore-*` ou `--site-*`.
+ * As mesmas regras do plugin do Stylelint (decisões 131 e 133), checadas no build:
+ * só as at-rules da lista, `@apply` sem valor arbitrário nem variável fora do DS, e
+ * declaração direta só para propriedade sem utilitária equivalente, com palavra-chave
+ * ou variável do DS.
  */
-export function findApplyViolations({ css }: { css: string }): string[] {
+export function findCssViolations({ css, file }: { css: string; file: string }): string[] {
   const violations: string[] = [];
-  for (const [, list = ''] of css.matchAll(/@apply\s+([^;}]+)/g)) {
-    for (const candidate of list.trim().split(/\s+/)) {
-      if (candidate.includes('[')) {
-        violations.push(candidate);
-        continue;
-      }
-      const variables = [...candidate.matchAll(/\(([^)]*)\)/g)].map(([, inner = '']) => inner);
-      if (variables.some((variable) => !DS_VARIABLE.test(variable))) violations.push(candidate);
+  const root = postcss.parse(css, { from: file });
+  root.walkAtRules((atRule) => {
+    const line = `${file}:${atRule.source?.start?.line}`;
+    const reason = findAtRuleViolation({ name: atRule.name });
+    if (reason) violations.push(`${line}: ${reason}`);
+    if (atRule.name !== 'apply') return;
+    for (const candidate of findApplyViolations({ params: atRule.params })) {
+      violations.push(`${line}: @apply ${candidate}`);
     }
-  }
+  });
+  root.walkDecls((declaration) => {
+    const reason = findDeclarationViolation({
+      property: declaration.prop,
+      value: declaration.value,
+    });
+    if (reason) violations.push(`${file}:${declaration.source?.start?.line}: ${reason}`);
+  });
   return violations;
 }
 
@@ -66,7 +78,7 @@ export function findApplyViolations({ css }: { css: string }): string[] {
  * Compila o CSS dos componentes (decisão 131): os arquivos usam só `@apply` com as
  * utilitárias do preset; o build faz o `@reference` ao Tailwind e ao preset, então a
  * saída é CSS puro, sem `@apply`, lendo as variáveis do `tokens.css`. Quebram o build:
- * utilitária fora do DS (ex.: `bg-red-500`), valor arbitrário e variável fora do DS.
+ * utilitária fora do DS (ex.: `bg-red-500`) e o que `findCssViolations` recusa.
  */
 export async function buildComponentsCss({
   files,
@@ -78,12 +90,10 @@ export async function buildComponentsCss({
   if (files.length === 0) return '';
 
   const violations = files.flatMap((file) =>
-    findApplyViolations({ css: readFileSync(file, 'utf8') }).map(
-      (candidate) => `${file}: ${candidate}`,
-    ),
+    findCssViolations({ css: readFileSync(file, 'utf8'), file }),
   );
   if (violations.length > 0) {
-    throw new Error(`@apply fora do DS (decisão 131):\n${violations.join('\n')}`);
+    throw new Error(`CSS de componente fora do DS (decisões 131 e 133):\n${violations.join('\n')}`);
   }
 
   const require = createRequire(import.meta.url);

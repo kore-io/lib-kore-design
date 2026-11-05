@@ -66,3 +66,23 @@ O JSX dos componentes usa só classes semânticas (`kore-button kore-button--pri
 @import '@kore-io/design/tailwind.css';
 @import '@kore-io/design/components.css';
 ```
+
+## Stylelint (decisões 131 e 133)
+
+O pacote publica um plugin do Stylelint com as regras do CSS de componente, para o editor, o lint e o CI (aqui e no `web-kore-app`). O build do `components.css` checa as mesmas regras.
+
+```js
+// stylelint.config.js
+export default {
+  plugins: ['@kore-io/design/stylelint'],
+  rules: {
+    'kore/apply-ds-only': true,
+    'kore/declaration-ds-only': true,
+    'kore/at-rule-ds-only': true,
+  },
+};
+```
+
+- `kore/apply-ds-only`: no `@apply`, nada de valor ou variante arbitrária (`bg-[#f00]`, `[&>svg]:p-2`) nem variável fora de `--kore-*`/`--site-*`.
+- `kore/declaration-ds-only`: declaração direta (fora do `@apply`) só para propriedade sem utilitária equivalente, listada em `stylelint/rules.js` (`DIRECT_PROPERTIES`; propriedade nova entra por PR), e com valor só de palavras-chave ou `var(--kore-*|--site-*)`. Recusa cor literal (inclusive nomeada), número com ou sem unidade e `var()` fora do DS.
+- `kore/at-rule-ds-only`: só `@apply`, `@media`, `@supports`, `@container` e `@keyframes`. Recusa `@import`, `@theme`, `@utility`, `@plugin`, `@config`, `@source`, `@tailwind`, `@layer` e as demais, que trariam CSS de fora ou mexeriam no tema. Dentro de `@keyframes` valem as mesmas regras de declaração.

@@ -1,0 +1,5 @@
+.kore-bad {
+  color: #ff0000;
+  padding: 3px;
+  -webkit-tap-highlight-color: red;
+}

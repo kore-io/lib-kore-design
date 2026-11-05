@@ -2,11 +2,7 @@ import { chmodSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
-import {
-  buildComponentsCss,
-  findApplyViolations,
-  listComponentStyles,
-} from '../src/css/components-css';
+import { buildComponentsCss, listComponentStyles } from '../src/css/components-css';
 import { buildTailwindCss } from '../src/css/tailwind-css';
 import { buildTokensCss } from '../src/css/tokens-css';
 
@@ -72,26 +68,26 @@ describe('CSS dos componentes (decisão 131: @apply no CSS, classes semânticas 
       files: listComponentStyles({ root: join(fixtures, 'components-invalid/arbitrary') }),
       presetPath,
     });
-    await expect(build).rejects.toThrow(/@apply fora do DS/);
-    await expect(build).rejects.toThrow(/bg-\[#ff0000\]/);
+    await expect(build).rejects.toThrow(/fora do DS/);
+    await expect(build).rejects.toThrow(/@apply bg-\[#ff0000\]/);
   });
 
-  it('aponta cada candidato do @apply que contorna o DS', () => {
-    expect(
-      findApplyViolations({
-        css: `.a { @apply bg-[#ff0000] text-[13px] rounded-[3px] font-[Comic_Sans]; }
-              .b { @apply bg-(--other-color) [&>svg]:p-2 md:bg-[red]; }
-              .c { @apply p-4 bg-primary md:px-6 bg-(--kore-primary-base) text-(--site-foreground); }`,
-      }),
-    ).toEqual([
-      'bg-[#ff0000]',
-      'text-[13px]',
-      'rounded-[3px]',
-      'font-[Comic_Sans]',
-      'bg-(--other-color)',
-      '[&>svg]:p-2',
-      'md:bg-[red]',
-    ]);
+  it('declaração direta fora do DS quebra o build (decisão 133)', async () => {
+    const build = buildComponentsCss({
+      files: listComponentStyles({ root: join(fixtures, 'components-invalid/declaration') }),
+      presetPath,
+    });
+    await expect(build).rejects.toThrow(/bad\.css:2: "color" tem utilitária/);
+    await expect(build).rejects.toThrow(/"red": cor literal/);
+  });
+
+  it('@import e @theme no CSS de componente quebram o build', async () => {
+    const build = buildComponentsCss({
+      files: listComponentStyles({ root: join(fixtures, 'components-invalid/at-rule') }),
+      presetPath,
+    });
+    await expect(build).rejects.toThrow(/bad\.css:1: "@import" não é aceita/);
+    await expect(build).rejects.toThrow(/bad\.css:3: "@theme" não é aceita/);
   });
 
   it('CSS fora de atoms/ e molecules/ quebra o build', () => {
