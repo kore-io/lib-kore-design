@@ -11,3 +11,6 @@ export { Select, type SelectProps } from './atoms/select/select';
 export { DateField, type DateFieldProps } from './atoms/date-field/date-field';
 export { CodeInput, type CodeInputProps } from './atoms/code-input/code-input';
 export { Radio, type RadioProps } from './atoms/radio/radio';
+export { Alert, type AlertProps, type AlertTone } from './atoms/alert/alert';
+export { Badge, type BadgeProps, type BadgeTone } from './atoms/badge/badge';
+export { Divider, type DividerOrientation, type DividerProps } from './atoms/divider/divider';

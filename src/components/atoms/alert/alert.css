@@ -1,0 +1,52 @@
+/* Alert do DS v0.16: fundo tint, borda base e ícone na cor de texto de cada tipo. */
+.kore-alert {
+  @apply flex items-start gap-3 rounded-md border px-4 py-3.5;
+}
+
+.kore-alert__icon {
+  @apply size-6 shrink-0;
+}
+
+.kore-alert__content {
+  @apply flex min-w-0 flex-1 flex-col gap-0.5;
+}
+
+.kore-alert__title {
+  @apply type-label text-ink;
+}
+
+.kore-alert__description {
+  @apply type-body-md text-gray-700;
+}
+
+.kore-alert--info {
+  @apply border-info-base bg-info-tint;
+}
+
+.kore-alert--info .kore-alert__icon {
+  @apply text-info-text;
+}
+
+.kore-alert--success {
+  @apply border-success-base bg-success-tint;
+}
+
+.kore-alert--success .kore-alert__icon {
+  @apply text-success-text;
+}
+
+.kore-alert--warning {
+  @apply border-warning-base bg-warning-tint;
+}
+
+.kore-alert--warning .kore-alert__icon {
+  @apply text-warning-text;
+}
+
+.kore-alert--danger {
+  @apply border-danger-base bg-danger-tint;
+}
+
+.kore-alert--danger .kore-alert__icon {
+  @apply text-danger-text;
+}
