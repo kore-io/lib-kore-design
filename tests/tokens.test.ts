@@ -150,6 +150,18 @@ describe('tokens espelham o Design System v0.16 do Penpot', () => {
       duration: 'base',
     });
     expect(motionAnimations['overlay-out'].duration).toBe('base');
+    expect(patterns['Menu ⋮, popover, tooltip']).toContain('motion.base');
+    expect(motionAnimations['popover-in']).toEqual({ keyframes: 'pop-in', duration: 'base' });
+    expect(motionAnimations['popover-out']).toEqual({ keyframes: 'pop-out', duration: 'fast' });
+    expect(patterns['Modal (desktop) e folha inferior (celular)']).toContain('motion.slow');
+    expect(motionAnimations['sheet-in']).toEqual({
+      keyframes: 'slide-in-bottom',
+      duration: 'slow',
+    });
+    expect(motionAnimations['sheet-out']).toEqual({
+      keyframes: 'slide-out-bottom',
+      duration: 'base',
+    });
     expect(patterns['Movimento reduzido']).toContain('motion.base');
     expect(motionAnimations['reduced-in']).toEqual({ keyframes: 'fade-in', duration: 'base' });
     expect(motionAnimations['reduced-out']).toEqual({ keyframes: 'fade-out', duration: 'base' });

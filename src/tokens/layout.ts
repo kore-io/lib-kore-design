@@ -81,6 +81,22 @@ export const motionKeyframes = {
     from: { transform: 'translateX(0)' },
     to: { transform: 'translateX(-100%)' },
   },
+  'slide-in-bottom': {
+    from: { transform: 'translateY(100%)' },
+    to: { transform: 'translateY(0)' },
+  },
+  'slide-out-bottom': {
+    from: { transform: 'translateY(0)' },
+    to: { transform: 'translateY(100%)' },
+  },
+  'pop-in': {
+    from: { opacity: '0', transform: 'translateY(-4px)' },
+    to: { opacity: '1', transform: 'translateY(0)' },
+  },
+  'pop-out': {
+    from: { opacity: '1', transform: 'translateY(0)' },
+    to: { opacity: '0', transform: 'translateY(-4px)' },
+  },
 } as const;
 
 /**
@@ -93,6 +109,12 @@ export const motionAnimations = {
   'drawer-out': { keyframes: 'slide-out-left', duration: 'base' },
   'overlay-in': { keyframes: 'fade-in', duration: 'slow' },
   'overlay-out': { keyframes: 'fade-out', duration: 'base' },
+  /** Menu, popover: opacidade e 4 px a partir do gatilho; sai em motion.fast. */
+  'popover-in': { keyframes: 'pop-in', duration: 'base' },
+  'popover-out': { keyframes: 'pop-out', duration: 'fast' },
+  /** Folha inferior (celular): sobe da borda de baixo. */
+  'sheet-in': { keyframes: 'slide-in-bottom', duration: 'slow' },
+  'sheet-out': { keyframes: 'slide-out-bottom', duration: 'base' },
   'reduced-in': { keyframes: 'fade-in', duration: 'base' },
   'reduced-out': { keyframes: 'fade-out', duration: 'base' },
 } as const satisfies Record<
