@@ -1,0 +1,3 @@
+.kore-bad {
+  @apply bg-[#ff0000] text-[13px] rounded-[3px] font-[Comic_Sans] bg-(--other-color) [&>svg]:p-2;
+}
