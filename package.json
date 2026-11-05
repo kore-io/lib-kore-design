@@ -14,7 +14,8 @@
   },
   "files": [
     "dist",
-    "stylelint"
+    "stylelint",
+    "eslint"
   ],
   "sideEffects": [
     "*.css"
@@ -30,6 +31,7 @@
     "./tailwind.css": "./dist/tailwind.css",
     "./components.css": "./dist/components.css",
     "./stylelint": "./stylelint/index.js",
+    "./eslint": "./eslint/index.js",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -46,13 +48,17 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "stylelint": "^18.0.0",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "eslint": "^10.0.0"
   },
   "peerDependenciesMeta": {
     "tailwindcss": {
       "optional": true
     },
     "stylelint": {
+      "optional": true
+    },
+    "eslint": {
       "optional": true
     }
   },

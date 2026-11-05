@@ -82,6 +82,19 @@ O JSX dos componentes usa só classes semânticas (`kore-button kore-button--pri
 @import '@kore-io/design/components.css';
 ```
 
+## ESLint (decisões 131 e 148)
+
+O pacote publica um plugin do ESLint com a regra `kore/semantic-class-names`: no JSX, toda classe do `className` (e do `joinClassNames`) segue o BEM com o prefixo `kore-` (`kore-<bloco>__<elemento>--<modificador>`, minúsculas); nada de utilitária do Tailwind. Partes dinâmicas de um template literal contam como trecho válido; uma classe inteira dinâmica (o `className` repassado) não é checada. A lib usa a regra nos próprios componentes.
+
+```js
+// eslint.config.js
+import kore from '@kore-io/design/eslint';
+
+export default [
+  { files: ['src/**/*.tsx'], plugins: { kore }, rules: { 'kore/semantic-class-names': 'error' } },
+];
+```
+
 ## Stylelint (decisões 131 e 133)
 
 O pacote publica um plugin do Stylelint com as regras do CSS de componente, para o editor, o lint e o CI (aqui e no `web-kore-app`). O build do `components.css` checa as mesmas regras.

@@ -17,5 +17,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["src", "tests", "scripts", "stylelint", "*.config.ts"]
+  "include": ["src", "tests", "scripts", "stylelint", "eslint", "*.config.ts"]
 }
