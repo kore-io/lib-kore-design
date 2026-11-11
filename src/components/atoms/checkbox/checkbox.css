@@ -1,0 +1,48 @@
+/*
+ * Checkbox do DS v0.18: controle de 20 px, raio sm (6 px), borda de 1,5 px em input
+ * (decisão 140), fundo branco; Marcado e Indeterminado com fundo primary e o ícone em
+ * paper (Check 14 x 10 e Minus 10 x 2, traço de 2,2 px); 10 px entre o controle e o texto
+ * em type.body.md; desabilitado a 45%. A área de toque cresce 12 px para cima e para
+ * baixo e 12 px para os lados, até os 44 px do Brand Kit.
+ */
+.kore-checkbox {
+  @apply relative inline-flex cursor-pointer items-center gap-2.5;
+  @apply type-body-md text-ink;
+  @apply before:absolute before:-inset-3;
+  @apply has-disabled:cursor-not-allowed has-disabled:opacity-45;
+}
+
+.kore-checkbox__input {
+  @apply sr-only;
+}
+
+.kore-checkbox__control {
+  @apply flex size-5 shrink-0 items-center justify-center rounded-sm border-1.5 border-input bg-white;
+}
+
+.kore-checkbox__check,
+.kore-checkbox__minus {
+  @apply hidden stroke-paper;
+}
+
+.kore-checkbox__check {
+  @apply h-2.5 w-3.5;
+}
+
+.kore-checkbox__minus {
+  @apply h-0.5 w-2.5;
+}
+
+.kore-checkbox__input:checked + .kore-checkbox__control,
+.kore-checkbox__input:indeterminate + .kore-checkbox__control {
+  @apply border-0 bg-primary;
+}
+
+.kore-checkbox__input:checked:not(:indeterminate) + .kore-checkbox__control .kore-checkbox__check,
+.kore-checkbox__input:indeterminate + .kore-checkbox__control .kore-checkbox__minus {
+  @apply block;
+}
+
+.kore-checkbox__input:focus-visible + .kore-checkbox__control {
+  @apply shadow-focus-ring outline-2 outline-paper;
+}
