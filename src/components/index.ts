@@ -19,6 +19,7 @@ export { Divider, type DividerOrientation, type DividerProps } from './atoms/div
 export { Avatar, type AvatarProps, type AvatarSize } from './atoms/avatar/avatar';
 export { NavItem, type NavItemProps } from './atoms/nav-item/nav-item';
 export { Tab, Tabs, type TabProps, type TabsProps } from './atoms/tab/tab';
+export { Spinner, type SpinnerProps } from './atoms/spinner/spinner';
 export { Logo, type LogoProps, type LogoVariant } from './atoms/logo/logo';
 export { IconButton, type IconButtonProps } from './atoms/icon-button/icon-button';
 export { Topbar, type TopbarProps } from './molecules/topbar/topbar';
@@ -33,3 +34,17 @@ export {
   type ToastProviderProps,
   type ToastTone,
 } from './molecules/toast/toast';
+export {
+  ActionMenu,
+  type ActionMenuItem,
+  type ActionMenuProps,
+} from './molecules/action-menu/action-menu';
+export {
+  GroupRow,
+  GroupTable,
+  GroupTableHeader,
+  type GroupRowLines,
+  type GroupRowProps,
+  type GroupTableHeaderProps,
+  type GroupTableProps,
+} from './molecules/group-table/group-table';
