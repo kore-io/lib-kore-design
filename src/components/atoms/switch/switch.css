@@ -1,0 +1,43 @@
+/*
+ * Switch do DS v0.18: trilho de 44 x 24 px em pílula, gray.600 desligado e primary.dark
+ * ligado; bolinha branca de 18 px com 3 px de folga, que vai para a direita ao ligar;
+ * 10 px entre o controle e o texto em type.body.md ink; desabilitado a 45%. A área de
+ * toque cresce até os 44 px do Brand Kit, como no Checkbox.
+ */
+.kore-switch {
+  @apply relative inline-flex cursor-pointer items-center gap-2.5;
+  @apply type-body-md text-ink;
+  @apply before:absolute before:-inset-x-3 before:-inset-y-2.5;
+  @apply has-disabled:cursor-not-allowed has-disabled:opacity-45;
+}
+
+.kore-switch__input {
+  @apply sr-only;
+}
+
+.kore-switch__control {
+  @apply flex h-6 w-11 shrink-0 items-center rounded-full bg-gray-600 px-0.75 transition-colors;
+}
+
+.kore-switch__thumb {
+  @apply size-4.5 rounded-full bg-white transition-transform;
+}
+
+.kore-switch__input:checked + .kore-switch__control {
+  @apply bg-primary-dark;
+}
+
+.kore-switch__input:checked + .kore-switch__control .kore-switch__thumb {
+  @apply translate-x-5;
+}
+
+.kore-switch__input:focus-visible + .kore-switch__control {
+  @apply shadow-focus-ring outline-2 outline-paper;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kore-switch__control,
+  .kore-switch__thumb {
+    @apply transition-none;
+  }
+}
