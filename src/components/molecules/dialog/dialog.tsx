@@ -1,5 +1,5 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
-import { useRef, type ReactNode } from 'react';
+import { useRef, type ReactNode, type RefObject } from 'react';
 import { joinClassNames } from '../../../lib/class-names';
 
 export interface DialogProps {
@@ -18,6 +18,11 @@ export interface DialogProps {
    * lixeira); `dialog` para um diálogo com campo.
    */
   role?: 'alertdialog' | 'dialog';
+  /**
+   * Para onde o foco volta ao fechar, quando quem abriu some (ex.: o item do menu ⋮, que
+   * fecha junto): o app passa o botão ⋮. Sem isso, volta a quem tinha o foco ao abrir.
+   */
+  returnFocusRef?: RefObject<HTMLElement | null>;
   className?: string;
 }
 
@@ -34,6 +39,7 @@ export function Dialog({
   children,
   actions,
   role = 'alertdialog',
+  returnFocusRef,
   className,
 }: DialogProps) {
   // O app abre o Dialog por um botão seu (sem o Trigger do Radix): guarda quem tinha o
@@ -50,21 +56,29 @@ export function Dialog({
               document.activeElement instanceof HTMLElement ? document.activeElement : null;
           }}
           onCloseAutoFocus={(event) => {
-            if (!returnFocus.current?.isConnected) return;
+            const target = returnFocusRef?.current ?? returnFocus.current;
+            if (!target?.isConnected) return;
             event.preventDefault();
-            returnFocus.current.focus();
+            target.focus();
           }}
-          className={joinClassNames({ names: ['kore-dialog', className] })}
+          className="kore-dialog"
+          // O respiro de 16 px em volta do cartão é parte do Content: tocar nele fecha,
+          // como no fundo.
+          onPointerDown={(event) => {
+            if (event.target === event.currentTarget) onOpenChange(false);
+          }}
           {...(description === undefined && { 'aria-describedby': undefined })}
         >
-          <RadixDialog.Title className="kore-dialog__title">{title}</RadixDialog.Title>
-          {description !== undefined && (
-            <RadixDialog.Description className="kore-dialog__description">
-              {description}
-            </RadixDialog.Description>
-          )}
-          {children}
-          <div className="kore-dialog__actions">{actions}</div>
+          <div className={joinClassNames({ names: ['kore-dialog__card', className] })}>
+            <RadixDialog.Title className="kore-dialog__title">{title}</RadixDialog.Title>
+            {description !== undefined && (
+              <RadixDialog.Description className="kore-dialog__description">
+                {description}
+              </RadixDialog.Description>
+            )}
+            {children}
+            <div className="kore-dialog__actions">{actions}</div>
+          </div>
         </RadixDialog.Content>
       </RadixDialog.Portal>
     </RadixDialog.Root>

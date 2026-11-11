@@ -2,7 +2,8 @@
  * Dialog do DS v0.18: fundo overlay; cartão branco de 440 px (no celular, a tela menos
  * 16 px de cada lado), raio lg, shadow.lg, 24 px de respiro e 16 px entre os itens;
  * título em type.heading (ink), texto em type.body.md (gray.700); ações à direita,
- * 8 px entre elas e 8 px a mais em cima. Entra e sai em fade, no tempo do modal
+ * 8 px entre elas e 8 px a mais em cima. Mais alto que a tela (celular deitado, teclado
+ * aberto), o cartão para 16 px antes das bordas e rola por dentro. Entra e sai em fade, no tempo do modal
  * (02 · Motion: motion.slow para entrar, um passo abaixo para sair).
  */
 .kore-dialog__overlay {
@@ -18,7 +19,11 @@
 }
 
 .kore-dialog {
-  @apply fixed inset-x-4 top-1/2 z-50 mx-auto flex max-w-110 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-6 shadow-lg outline-none;
+  @apply fixed inset-0 z-50 m-auto flex h-fit max-h-dvh max-w-118 flex-col p-4 outline-none;
+}
+
+.kore-dialog__card {
+  @apply flex min-h-0 flex-col gap-4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg;
 }
 
 .kore-dialog[data-state='open'] {
