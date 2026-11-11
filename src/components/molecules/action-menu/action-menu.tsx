@@ -17,21 +17,30 @@ export interface ActionMenuItem {
   onSelect: () => void;
 }
 
-export interface ActionMenuProps {
-  /**
-   * Nome acessível do botão ⋮, vindo do app (ex.: "Ações de Família Moreira"). Com
-   * `trigger`, não é usado (o gatilho tem o seu nome).
-   */
-  label: string;
-  /**
-   * Gatilho próprio no lugar do ⋮ (ex.: o Button "Adicionar tag" da barra de seleção);
-   * recebe as props do menu (asChild). Desabilitado, o menu não abre.
-   */
-  trigger?: ReactElement<{ disabled?: boolean }>;
+interface ActionMenuBaseProps {
   /** Grupos de itens, separados por linhas. */
   groups: ActionMenuItem[][];
   className?: string;
 }
+
+interface ActionMenuDotsProps extends ActionMenuBaseProps {
+  /** Nome acessível do botão ⋮, vindo do app (ex.: "Ações de Família Moreira"). */
+  label: string;
+  trigger?: undefined;
+}
+
+interface ActionMenuTriggerProps extends ActionMenuBaseProps {
+  /**
+   * Gatilho próprio no lugar do ⋮ (ex.: o Button "Adicionar tag" da barra de seleção);
+   * recebe as props do menu (asChild). Desabilitado, o menu não abre.
+   */
+  trigger: ReactElement<{ disabled?: boolean }>;
+  /** Não é usado: o gatilho tem o seu nome. */
+  label?: string;
+}
+
+/** O `label` é obrigatório no ⋮ e opcional com `trigger`. */
+export type ActionMenuProps = ActionMenuDotsProps | ActionMenuTriggerProps;
 
 /**
  * Menu de ações do DS: o botão ⋮ (32 px, área de toque de 44 px), ou um gatilho do app,
@@ -71,6 +80,8 @@ export function ActionMenu({ label, trigger, groups, className }: ActionMenuProp
                     ],
                   })}
                   textValue={item.label}
+                  // Com conteúdo próprio, o nome do item é o label (não o que o conteúdo diz).
+                  aria-label={item.content === undefined ? undefined : item.label}
                   onSelect={item.onSelect}
                 >
                   {item.content ?? item.label}
