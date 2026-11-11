@@ -1,0 +1,42 @@
+/*
+ * Dialog do DS v0.18: fundo overlay; cartão branco de 440 px (no celular, a tela menos
+ * 16 px de cada lado), raio lg, shadow.lg, 24 px de respiro e 16 px entre os itens;
+ * título em type.heading (ink), texto em type.body.md (gray.700); ações à direita,
+ * 8 px entre elas e 8 px a mais em cima. Entra e sai em fade, no tempo do modal
+ * (02 · Motion: motion.slow para entrar, um passo abaixo para sair).
+ */
+.kore-dialog__overlay {
+  @apply fixed inset-0 z-50 bg-overlay;
+}
+
+.kore-dialog__overlay[data-state='open'] {
+  @apply animate-overlay-in motion-reduce:animate-reduced-in;
+}
+
+.kore-dialog__overlay[data-state='closed'] {
+  @apply animate-overlay-out motion-reduce:animate-reduced-out;
+}
+
+.kore-dialog {
+  @apply fixed inset-x-4 top-1/2 z-50 mx-auto flex max-w-110 -translate-y-1/2 flex-col gap-4 rounded-lg bg-white p-6 shadow-lg outline-none;
+}
+
+.kore-dialog[data-state='open'] {
+  @apply animate-overlay-in motion-reduce:animate-reduced-in;
+}
+
+.kore-dialog[data-state='closed'] {
+  @apply animate-overlay-out motion-reduce:animate-reduced-out;
+}
+
+.kore-dialog__title {
+  @apply type-heading text-ink;
+}
+
+.kore-dialog__description {
+  @apply type-body-md text-gray-700;
+}
+
+.kore-dialog__actions {
+  @apply flex flex-wrap items-center justify-end gap-2 pt-2;
+}

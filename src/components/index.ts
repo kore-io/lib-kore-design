@@ -48,3 +48,4 @@ export {
   type GroupTableHeaderProps,
   type GroupTableProps,
 } from './molecules/group-table/group-table';
+export { Dialog, type DialogProps } from './molecules/dialog/dialog';
