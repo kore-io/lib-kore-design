@@ -42,6 +42,8 @@ export interface GroupTableHeaderProps {
     delivery: string;
     respondedAt: string;
     tags: string;
+    /** Rótulo da coluna do ⋮, só para o leitor de tela (o DS não mostra). */
+    actions: string;
   };
 }
 
@@ -70,8 +72,9 @@ export function GroupTableHeader({ selectAll, labels }: GroupTableHeaderProps) {
       <div role="columnheader" className="kore-group-table-header__tags">
         {labels.tags}
       </div>
-      {/* A coluna do menu ⋮ não tem rótulo no DS. */}
-      <div role="none" className="kore-group-table-header__actions" />
+      <div role="columnheader" className="kore-group-table-header__actions">
+        <span className="kore-group-table-header__sr-only">{labels.actions}</span>
+      </div>
     </div>
   );
 }
@@ -116,8 +119,8 @@ function Lines({ lines }: { lines: GroupRowLines }) {
 
 /**
  * Group Row do DS: no computador, a linha da tabela (check, grupo, pessoas, respostas,
- * envio, respondido em, tags e ⋮); no tablet e no celular, o cartão (topo com check,
- * grupo e ⋮; pessoas e respostas; envio e respondido em; tags).
+ * envio, respondido em, tags e ⋮, a ordem do DOM); no tablet e no celular, o cartão
+ * (topo com check, grupo e ⋮; pessoas e respostas; envio e respondido em; tags).
  */
 export function GroupRow({
   select,
@@ -133,17 +136,14 @@ export function GroupRow({
 }: GroupRowProps) {
   return (
     <div role="row" className={joinClassNames({ names: ['kore-group-row', className] })}>
-      <div role="none" className="kore-group-row__top">
-        <div role="cell" className="kore-group-row__select">
-          {select}
-        </div>
-        <div role="cell" className="kore-group-row__group">
-          <span className="kore-group-row__name">{name}</span>
-          <span className="kore-group-row__contact">{contact}</span>
-        </div>
-        <div role="cell" className="kore-group-row__actions">
-          {actions}
-        </div>
+      {/* A ordem do DOM é a das colunas (cabeçalho e leitor de tela); o cartão põe o ⋮ no
+          topo pelo CSS. */}
+      <div role="cell" className="kore-group-row__select">
+        {select}
+      </div>
+      <div role="cell" className="kore-group-row__group">
+        <span className="kore-group-row__name">{name}</span>
+        <span className="kore-group-row__contact">{contact}</span>
       </div>
       <div role="none" className="kore-group-row__summary">
         <div role="cell" className="kore-group-row__people">
@@ -170,6 +170,9 @@ export function GroupRow({
       </div>
       <div role="cell" className="kore-group-row__tags">
         {tags}
+      </div>
+      <div role="cell" className="kore-group-row__actions">
+        {actions}
       </div>
     </div>
   );

@@ -5,7 +5,8 @@
  * e raio lg.
  * Cartão: branco, borda gray.300, raio lg, 16 px de respiro e 12 px entre as faixas
  * (topo de 44 px com check, grupo e ⋮; pessoas e respostas, 24 px entre eles; envio e
- * respondido em, nas pontas; tags).
+ * respondido em, nas pontas; tags). A ordem do DOM é a da tabela (o ⋮ por último, para
+ * as células baterem com os cabeçalhos); o cartão reordena pelo `order`.
  * Linha: 62 px, 12/16 px de respiro, 16 px entre as colunas, nas larguras do Penpot
  * (check 20, grupo 220 ou mais, pessoas 72, respostas 220, envio 140, respondido em
  * 130, tags 150 e ⋮ 32). Cabeçalho: 40 px, 10/16 px, fundo gray.100, type.overline em
@@ -59,21 +60,21 @@
   @apply w-8 shrink-0;
 }
 
-/* Cartão (celular e tablet). */
-.kore-group-row {
-  @apply flex min-w-0 flex-col gap-3 rounded-lg border border-gray-300 bg-white p-4;
+.kore-group-table-header__sr-only {
+  @apply sr-only;
 }
 
-.kore-group-row__top {
-  @apply flex min-h-11 items-center gap-3;
+/* Cartão (celular e tablet): flex com quebra; o ⋮, último no DOM, sobe para o topo. */
+.kore-group-row {
+  @apply flex min-w-0 flex-wrap items-center gap-3 rounded-lg border border-gray-300 bg-white p-4;
 }
 
 .kore-group-row__select {
-  @apply flex w-5 shrink-0;
+  @apply order-1 flex w-5 shrink-0;
 }
 
 .kore-group-row__group {
-  @apply flex min-w-0 flex-1 flex-col gap-0.5;
+  @apply order-2 flex min-h-11 min-w-0 flex-1 flex-col justify-center gap-0.5;
 }
 
 .kore-group-row__name {
@@ -85,11 +86,11 @@
 }
 
 .kore-group-row__actions {
-  @apply flex w-8 shrink-0 justify-center;
+  @apply order-3 flex w-8 shrink-0 justify-center;
 }
 
 .kore-group-row__summary {
-  @apply flex items-center gap-6;
+  @apply order-4 flex basis-full items-center gap-6;
 }
 
 .kore-group-row__people {
@@ -114,7 +115,7 @@
 }
 
 .kore-group-row__status {
-  @apply flex min-h-6 items-center justify-between gap-3;
+  @apply order-5 flex min-h-6 basis-full items-center justify-between gap-3;
 }
 
 .kore-group-row__empty {
@@ -122,30 +123,34 @@
 }
 
 .kore-group-row__tags {
-  @apply flex min-h-5 min-w-0 flex-wrap items-center gap-1;
+  @apply order-6 flex min-h-5 min-w-0 basis-full flex-wrap items-center gap-1;
 }
 
-/* Linha da tabela (computador): as faixas do cartão somem e as células ficam em fila. */
+/* Linha da tabela (computador): as faixas do cartão somem, e as células seguem o DOM. */
 .kore-group-row {
-  @apply lg:min-h-15.5 lg:flex-row lg:items-center lg:gap-4 lg:rounded-none lg:border-0 lg:px-4 lg:py-3;
+  @apply lg:min-h-15.5 lg:flex-nowrap lg:gap-4 lg:rounded-none lg:border-0 lg:px-4 lg:py-3;
 }
 
-.kore-group-row__top,
 .kore-group-row__summary,
 .kore-group-row__status {
   @apply lg:contents;
 }
 
-.kore-group-row__select {
-  @apply lg:order-1;
+.kore-group-row__select,
+.kore-group-row__group,
+.kore-group-row__summary,
+.kore-group-row__actions,
+.kore-group-row__status,
+.kore-group-row__tags {
+  @apply lg:order-none;
 }
 
 .kore-group-row__group {
-  @apply lg:order-2 lg:min-w-55;
+  @apply lg:min-h-0 lg:min-w-55;
 }
 
 .kore-group-row__people {
-  @apply lg:order-3 lg:w-18;
+  @apply lg:w-18;
 }
 
 .kore-group-row__people-value {
@@ -157,21 +162,17 @@
 }
 
 .kore-group-row__responses {
-  @apply lg:order-4 lg:w-55 lg:shrink-0;
+  @apply lg:w-55 lg:shrink-0;
 }
 
 .kore-group-row__delivery {
-  @apply lg:order-5 lg:w-35 lg:shrink-0;
+  @apply lg:w-35 lg:shrink-0;
 }
 
 .kore-group-row__responded-at {
-  @apply lg:order-6 lg:w-32.5 lg:shrink-0;
+  @apply lg:w-32.5 lg:shrink-0;
 }
 
 .kore-group-row__tags {
-  @apply lg:order-7 lg:w-37.5 lg:shrink-0 lg:flex-nowrap lg:overflow-hidden;
-}
-
-.kore-group-row__actions {
-  @apply lg:order-8;
+  @apply lg:w-37.5 lg:shrink-0 lg:basis-auto lg:flex-nowrap lg:overflow-hidden;
 }

@@ -13,6 +13,7 @@ const labels = {
   delivery: 'Envio',
   respondedAt: 'Respondido em',
   tags: 'Tags',
+  actions: 'Ações',
 };
 
 function row(overrides: Partial<GroupRowProps> = {}) {
@@ -61,6 +62,7 @@ describe('GroupTable, GroupTableHeader e GroupRow', () => {
       'Envio',
       'Respondido em',
       'Tags',
+      'Ações',
     ]);
     expect(within(headers[0] as HTMLElement).getByRole('checkbox')).toHaveAccessibleName(
       'Selecionar todos os grupos',
@@ -68,20 +70,25 @@ describe('GroupTable, GroupTableHeader e GroupRow', () => {
     expect(within(table).getAllByRole('row')).toHaveLength(2);
   });
 
-  it('a linha tem as células na ordem do cartão, com os textos do app', () => {
+  it('cada célula fica na coluna do seu cabeçalho, com o ⋮ por último', () => {
     renderTable();
-    const [, groupRow] = screen.getAllByRole('row');
+    const [headerRow, groupRow] = screen.getAllByRole('row');
+    const headers = within(headerRow as HTMLElement).getAllByRole('columnheader');
     const cells = within(groupRow as HTMLElement).getAllByRole('cell');
-    expect(cells.map((cell) => cell.textContent)).toEqual([
-      '',
-      'Família MoreiraCélia Moreira · (19) 9****-3310',
-      'Ações de Família Moreira',
-      '33 pessoas',
-      '3 confirmadosnenhum recusado ou pendente',
-      'Respondido',
-      '12/09 às 20h14por Célia',
-      'Família da Ana',
-    ]);
+    expect(cells).toHaveLength(headers.length);
+    const byHeader = Object.fromEntries(
+      headers.map((header, index) => [header.textContent, cells[index]?.textContent]),
+    );
+    expect(byHeader).toEqual({
+      '': '',
+      Grupo: 'Família MoreiraCélia Moreira · (19) 9****-3310',
+      Pessoas: '33 pessoas',
+      Respostas: '3 confirmadosnenhum recusado ou pendente',
+      Envio: 'Respondido',
+      'Respondido em': '12/09 às 20h14por Célia',
+      Tags: 'Família da Ana',
+      Ações: 'Ações de Família Moreira',
+    });
     expect(screen.getByRole('link', { name: 'Família Moreira' })).toBeVisible();
   });
 
