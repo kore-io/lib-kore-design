@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { expectNoA11yViolations } from '../../../../tests/a11y';
+import { Button } from '../../atoms/button/button';
+import { Tag } from '../../atoms/tag/tag';
 import { ActionMenu } from './action-menu';
 
 function renderMenu({ onOpen = vi.fn(), onTrash = vi.fn() } = {}) {
@@ -47,6 +49,71 @@ describe('ActionMenu', () => {
     expect(screen.getByRole('menuitem', { name: 'Abrir' })).toHaveFocus();
     await user.keyboard('{Enter}');
     expect(onOpen).toHaveBeenCalledOnce();
+  });
+
+  it('com gatilho próprio, o botão do app abre os itens com conteúdo (ex.: a Tag)', async () => {
+    const user = userEvent.setup();
+    const onPadrinhos = vi.fn();
+    render(
+      <ActionMenu
+        label="não usado"
+        trigger={<Button variant="secondary">Adicionar tag</Button>}
+        groups={[
+          [
+            {
+              id: 't1',
+              label: 'Família da Ana',
+              content: <Tag color="wine">Família da Ana</Tag>,
+              onSelect: vi.fn(),
+            },
+            {
+              id: 't2',
+              label: 'Padrinhos',
+              content: <Tag color="champagne">Padrinhos</Tag>,
+              onSelect: onPadrinhos,
+            },
+          ],
+        ]}
+      />,
+    );
+    expect(screen.queryByRole('button', { name: 'não usado' })).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Adicionar tag' }));
+    const item = screen.getByRole('menuitem', { name: 'Padrinhos' });
+    expect(item.querySelector('.kore-tag--champagne')).not.toBeNull();
+    await user.click(item);
+    expect(onPadrinhos).toHaveBeenCalledOnce();
+  });
+
+  it('a busca por letra usa o label, mesmo com conteúdo', async () => {
+    const user = userEvent.setup();
+    render(
+      <ActionMenu
+        label="Tags"
+        groups={[
+          [
+            { id: 'a', label: 'Amigos', content: <Tag>Amigos</Tag>, onSelect: vi.fn() },
+            { id: 'p', label: 'Padrinhos', content: <Tag>Padrinhos</Tag>, onSelect: vi.fn() },
+          ],
+        ]}
+      />,
+    );
+    screen.getByRole('button', { name: 'Tags' }).focus();
+    await user.keyboard('{Enter}');
+    await user.keyboard('p');
+    expect(screen.getByRole('menuitem', { name: 'Padrinhos' })).toHaveFocus();
+  });
+
+  it('gatilho desabilitado não abre o menu', async () => {
+    const user = userEvent.setup();
+    render(
+      <ActionMenu
+        label="Tags"
+        trigger={<Button disabled>Adicionar tag</Button>}
+        groups={[[{ id: 'a', label: 'Amigos', onSelect: vi.fn() }]]}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'Adicionar tag' }));
+    expect(screen.queryByRole('menu')).toBeNull();
   });
 
   it('é acessível, fechado e aberto', async () => {
