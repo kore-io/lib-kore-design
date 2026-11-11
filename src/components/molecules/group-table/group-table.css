@@ -1,0 +1,178 @@
+/*
+ * Tabela de grupos do DS v0.18 (Group Table Header e Group Row), da tela Grupos e
+ * convidados. Celular: cartões em uma coluna; tablet (≥ 768 px): em duas, com 24 px
+ * entre eles; computador (≥ 1024 px): a tabela, num painel branco com borda gray.300
+ * e raio lg.
+ * Cartão: branco, borda gray.300, raio lg, 16 px de respiro e 12 px entre as faixas
+ * (topo de 44 px com check, grupo e ⋮; pessoas e respostas, 24 px entre eles; envio e
+ * respondido em, nas pontas; tags). A ordem do DOM é a da tabela (o ⋮ por último, para
+ * as células baterem com os cabeçalhos); o cartão reordena pelo `order`.
+ * Linha: 62 px, 12/16 px de respiro, 16 px entre as colunas, nas larguras do Penpot
+ * (check 20, grupo 220 ou mais, pessoas 72, respostas 220, envio 140, respondido em
+ * 130, tags 150 e ⋮ 32). Cabeçalho: 40 px, 10/16 px, fundo gray.100, type.overline em
+ * gray.700. Textos: grupo em type.label, pessoas e a 1ª linha em type.body.md, a 2ª
+ * linha e o contato em type.caption em gray.700; sem resposta, "—" em gray.500.
+ */
+.kore-group-table__body {
+  @apply grid gap-6 md:grid-cols-2;
+  @apply lg:flex lg:flex-col lg:gap-0;
+}
+
+.kore-group-table {
+  @apply lg:overflow-hidden lg:rounded-lg lg:border lg:border-gray-300 lg:bg-white;
+}
+
+.kore-group-table-header {
+  @apply hidden;
+  @apply lg:flex lg:min-h-10 lg:items-center lg:gap-4 lg:bg-gray-100 lg:px-4 lg:py-2.5;
+  @apply type-overline text-gray-700;
+}
+
+.kore-group-table-header__select {
+  @apply flex w-5 shrink-0;
+}
+
+.kore-group-table-header__group {
+  @apply min-w-55 flex-1;
+}
+
+.kore-group-table-header__people {
+  @apply w-18 shrink-0;
+}
+
+.kore-group-table-header__responses {
+  @apply w-55 shrink-0;
+}
+
+.kore-group-table-header__delivery {
+  @apply w-35 shrink-0;
+}
+
+.kore-group-table-header__responded-at {
+  @apply w-32.5 shrink-0;
+}
+
+.kore-group-table-header__tags {
+  @apply w-37.5 shrink-0;
+}
+
+.kore-group-table-header__actions {
+  @apply w-8 shrink-0;
+}
+
+.kore-group-table-header__sr-only {
+  @apply sr-only;
+}
+
+/* Cartão (celular e tablet): flex com quebra; o ⋮, último no DOM, sobe para o topo. */
+.kore-group-row {
+  @apply flex min-w-0 flex-wrap items-center gap-3 rounded-lg border border-gray-300 bg-white p-4;
+}
+
+.kore-group-row__select {
+  @apply order-1 flex w-5 shrink-0;
+}
+
+.kore-group-row__group {
+  @apply order-2 flex min-h-11 min-w-0 flex-1 flex-col justify-center gap-0.5;
+}
+
+.kore-group-row__name {
+  @apply type-label truncate text-ink;
+}
+
+.kore-group-row__contact {
+  @apply type-caption truncate text-gray-700;
+}
+
+.kore-group-row__actions {
+  @apply order-3 flex w-8 shrink-0 justify-center;
+}
+
+.kore-group-row__summary {
+  @apply order-4 flex basis-full items-center gap-6;
+}
+
+.kore-group-row__people {
+  @apply type-body-md shrink-0 text-ink;
+}
+
+.kore-group-row__people-value {
+  @apply hidden;
+}
+
+.kore-group-row__responses,
+.kore-group-row__responded-at {
+  @apply flex min-w-0 flex-col gap-0.5;
+}
+
+.kore-group-row__primary {
+  @apply type-body-md text-ink;
+}
+
+.kore-group-row__secondary {
+  @apply type-caption text-gray-700;
+}
+
+.kore-group-row__status {
+  @apply order-5 flex min-h-6 basis-full items-center justify-between gap-3;
+}
+
+.kore-group-row__empty {
+  @apply type-body-md text-gray-500;
+}
+
+.kore-group-row__tags {
+  @apply order-6 flex min-h-5 min-w-0 basis-full flex-wrap items-center gap-1;
+}
+
+/* Linha da tabela (computador): as faixas do cartão somem, e as células seguem o DOM. */
+.kore-group-row {
+  @apply lg:min-h-15.5 lg:flex-nowrap lg:gap-4 lg:rounded-none lg:border-0 lg:px-4 lg:py-3;
+}
+
+.kore-group-row__summary,
+.kore-group-row__status {
+  @apply lg:contents;
+}
+
+.kore-group-row__select,
+.kore-group-row__group,
+.kore-group-row__summary,
+.kore-group-row__actions,
+.kore-group-row__status,
+.kore-group-row__tags {
+  @apply lg:order-none;
+}
+
+.kore-group-row__group {
+  @apply lg:min-h-0 lg:min-w-55;
+}
+
+.kore-group-row__people {
+  @apply lg:w-18;
+}
+
+.kore-group-row__people-value {
+  @apply lg:inline;
+}
+
+.kore-group-row__people-label {
+  @apply lg:hidden;
+}
+
+.kore-group-row__responses {
+  @apply lg:w-55 lg:shrink-0;
+}
+
+.kore-group-row__delivery {
+  @apply lg:w-35 lg:shrink-0;
+}
+
+.kore-group-row__responded-at {
+  @apply lg:w-32.5 lg:shrink-0;
+}
+
+.kore-group-row__tags {
+  @apply lg:w-37.5 lg:shrink-0 lg:basis-auto lg:flex-nowrap lg:overflow-hidden;
+}
