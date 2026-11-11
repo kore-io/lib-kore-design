@@ -37,6 +37,8 @@ describe('preset do Tailwind v4 (tailwind.css)', () => {
       'text-danger-text',
       'bg-site-primary',
       'bg-overlay',
+      'bg-tag-champagne-tint',
+      'text-tag-champagne-text',
     ]);
     expect(css).toContain('background-color: var(--primary)');
     expect(css).toContain('color: var(--primary-foreground)');
@@ -46,6 +48,8 @@ describe('preset do Tailwind v4 (tailwind.css)', () => {
     expect(css).toContain('color: var(--kore-danger-text)');
     expect(css).toContain('background-color: var(--site-primary)');
     expect(css).toContain('background-color: var(--overlay)');
+    expect(css).toContain('background-color: var(--tag-champagne-tint)');
+    expect(css).toContain('color: var(--tag-champagne-text)');
   });
 
   it('remove as cores, fontes, textos, raios e sombras padrão do Tailwind', () => {

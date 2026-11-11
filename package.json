@@ -1,6 +1,6 @@
 {
   "name": "@kore-io/design",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tokens e componentes do Kore, espelho do Design System do Penpot.",
   "license": "UNLICENSED",
   "private": false,

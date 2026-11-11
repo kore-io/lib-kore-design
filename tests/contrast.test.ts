@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { coreColors, semanticColors, siteBackgrounds, siteColors } from '../src';
+import { coreColors, semanticColors, siteBackgrounds, siteColors, tagColors } from '../src';
 
 function luminance({ hex }: { hex: string }): number {
   const channels = [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16) / 255);
@@ -47,6 +47,11 @@ describe('contraste WCAG AA (texto normal, 4,5:1)', () => {
 
   it.each(['success', 'warning', 'danger', 'info'] as const)('%s.text sobre %s.tint', (name) => {
     const { text, tint } = coreColors[name];
+    expect(contrast({ foreground: text, background: tint })).toBeGreaterThanOrEqual(AA_TEXT);
+  });
+
+  // Cores de tag (decisão 191(1)): o texto da tag sobre o fundo dela.
+  it.each(Object.entries(tagColors))('tag %s: text sobre tint', (_name, { text, tint }) => {
     expect(contrast({ foreground: text, background: tint })).toBeGreaterThanOrEqual(AA_TEXT);
   });
 

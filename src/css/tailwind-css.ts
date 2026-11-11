@@ -7,7 +7,7 @@ import {
   radius,
   shadows,
 } from '../tokens/layout';
-import { semanticColorRefs } from '../tokens/semantic';
+import { semanticColorRefs, tagColorNames } from '../tokens/semantic';
 import { siteBackgrounds, siteColors, siteDefaults } from '../tokens/site';
 import { typeStyles } from '../tokens/typography';
 import { DESIGN_SYSTEM_VERSION } from '../tokens';
@@ -30,6 +30,10 @@ export function themeDeclarations(): Declarations {
     out[`--color-${name}`] = `var(--${name})`;
   }
   out['--color-overlay'] = 'var(--overlay)';
+  for (const name of tagColorNames) {
+    out[`--color-tag-${name}-tint`] = `var(--tag-${name}-tint)`;
+    out[`--color-tag-${name}-text`] = `var(--tag-${name}-text)`;
+  }
   for (const name of Object.keys(flatten({ tree: coreColors }))) {
     out[`--color-${name}`] = `var(--kore-${name})`;
   }

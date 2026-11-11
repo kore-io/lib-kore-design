@@ -32,6 +32,9 @@ describe('tokens.css', () => {
     expect(root).toContain('--primary: var(--kore-primary-dark);');
     expect(root).toContain('--destructive-hover: var(--kore-danger-darker);');
     expect(root).toContain('--overlay: rgba(36, 26, 30, 0.4);');
+    expect(root).toContain('--tag-wine-tint: var(--kore-primary-tint);');
+    expect(root).toContain('--tag-champagne-text: var(--kore-ink);');
+    expect(root).toContain('--tag-blue-text: var(--kore-info-text);');
     expect(root).toContain("--site-font-display: 'Cormorant Garamond', serif;");
     expect(root).toContain('--site-primary: #A94F37;');
     expect(root).toContain('--site-background: #FBF7F2;');

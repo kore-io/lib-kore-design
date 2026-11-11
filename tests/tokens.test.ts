@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import penpot from './fixtures/penpot-ds-v0.16.json';
+import penpot from './fixtures/penpot-ds-v0.18.json';
 import {
   coreColors,
   fractionalBorderWidths,
@@ -18,19 +18,18 @@ import {
   siteDefaults,
   siteFonts,
   spacing,
+  tagColorNames,
+  tagColorRefs,
+  tagColors,
   typeStyles,
 } from '../src';
 
 const PENPOT_REF = /^\{color\.(.+)\}$/;
 
 /** Divergências aceitas em relação ao Penpot, com o valor do Penpot e o motivo. */
-const SEMANTIC_DIVERGENCES: Record<string, { penpot: string; code: string; reason: string }> = {
-  placeholder: {
-    penpot: 'gray.500',
-    code: 'gray.700',
-    reason: 'decisão 132: placeholder com 4,5:1 (WCAG 1.4.3)',
-  },
-};
+const SEMANTIC_DIVERGENCES: Record<string, { penpot: string; code: string; reason: string }> = {};
+
+const TAG_TOKEN = /^color\.tag\.([a-z]+)\.(tint|text)$/;
 
 function penpotRefToPath({ ref }: { ref: string }): string {
   const match = PENPOT_REF.exec(ref);
@@ -46,7 +45,7 @@ function typeKey({ token }: { token: string }): string {
 const siteLabels = (record: Record<string, { label: string }>) =>
   Object.fromEntries(Object.entries(record).map(([key, value]) => [value.label, key]));
 
-describe('tokens espelham o Design System v0.16 do Penpot', () => {
+describe('tokens espelham o Design System v0.18 do Penpot', () => {
   it('cores do core (Kore/Core, sem os swatches do site)', () => {
     for (const [token, hex] of Object.entries(penpot['Kore/Core'])) {
       if (!token.startsWith('color.')) continue;
@@ -65,7 +64,8 @@ describe('tokens espelham o Design System v0.16 do Penpot', () => {
   });
 
   it('semânticos apontam para os mesmos tokens do core', () => {
-    const { 'color.overlay': overlay, ...refs } = penpot['Kore/Semantic'];
+    const { 'color.overlay': overlay, ...all } = penpot['Kore/Semantic'];
+    const refs = Object.fromEntries(Object.entries(all).filter(([name]) => !TAG_TOKEN.test(name)));
     expect(Object.keys(semanticColorRefs).sort()).toEqual(Object.keys(refs).sort());
     for (const [name, ref] of Object.entries(refs)) {
       const divergence = SEMANTIC_DIVERGENCES[name];
@@ -75,6 +75,24 @@ describe('tokens espelham o Design System v0.16 do Penpot', () => {
       );
     }
     expect(overlayColor).toBe(overlay);
+  });
+
+  it('cores de tag apontam para os mesmos tokens do core (decisões 191 e 192(4))', () => {
+    const penpotTags: Record<string, Record<string, string>> = {};
+    for (const [token, ref] of Object.entries(penpot['Kore/Semantic'])) {
+      const match = TAG_TOKEN.exec(token);
+      if (!match?.[1] || !match[2]) continue;
+      penpotTags[match[1]] = { ...penpotTags[match[1]], [match[2]]: penpotRefToPath({ ref }) };
+    }
+    expect(tagColorRefs).toEqual(penpotTags);
+    // O enum da API, na ordem do DS (decisão 191(1)).
+    expect(tagColorNames).toEqual(['wine', 'champagne', 'green', 'amber', 'red', 'blue']);
+    for (const name of tagColorNames) {
+      expect(tagColors[name]).toEqual({
+        tint: resolveCoreColor({ path: tagColorRefs[name].tint }),
+        text: resolveCoreColor({ path: tagColorRefs[name].text }),
+      });
+    }
   });
 
   it('famílias, pesos e estilos de texto', () => {

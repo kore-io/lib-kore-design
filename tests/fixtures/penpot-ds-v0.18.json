@@ -1,8 +1,5 @@
 {
-  "_source": "Penpot, arquivo Design system (24d9d841-759d-81bc-8008-b2baa50d6c08), lido pelo MCP em 05/11/2026. Valores brutos (antes de resolver).",
-  "_divergencias": {
-    "Kore/Semantic.placeholder": "No código é {color.gray.700}, não {color.gray.500}: placeholder precisa de 4,5:1 (WCAG 1.4.3, decisão 132). Ver SEMANTIC_DIVERGENCES em tests/tokens.test.ts."
-  },
+  "_source": "Penpot, arquivo Design system (24d9d841-759d-81bc-8008-b2baa50d6c08), versão 'DS v0.18 — cores de tag', lido pelo MCP em 10/11/2026. Valores brutos (antes de resolver).",
   "Kore/Core": {
     "color.primary.dark": "#74233D",
     "color.primary.darker": "#5C1A30",
@@ -71,9 +68,21 @@
     "border": "{color.gray.300}",
     "input": "{color.gray.600}",
     "ring": "{color.primary.base}",
-    "placeholder": "{color.gray.500}",
+    "placeholder": "{color.gray.700}",
     "destructive-hover": "{color.danger.darker}",
-    "color.overlay": "rgba(36, 26, 30, 0.4)"
+    "color.overlay": "rgba(36, 26, 30, 0.4)",
+    "color.tag.wine.tint": "{color.primary.tint}",
+    "color.tag.wine.text": "{color.primary.dark}",
+    "color.tag.champagne.tint": "{color.accent.base}",
+    "color.tag.champagne.text": "{color.ink}",
+    "color.tag.green.tint": "{color.success.tint}",
+    "color.tag.green.text": "{color.success.text}",
+    "color.tag.amber.tint": "{color.warning.tint}",
+    "color.tag.amber.text": "{color.warning.text}",
+    "color.tag.red.tint": "{color.danger.tint}",
+    "color.tag.red.text": "{color.danger.text}",
+    "color.tag.blue.tint": "{color.info.tint}",
+    "color.tag.blue.text": "{color.info.text}"
   },
   "Kore/Typography": {
     "font.display": "Cormorant Garamond",
