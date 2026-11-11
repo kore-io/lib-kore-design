@@ -1,0 +1,14 @@
+/*
+ * Textarea do DS v0.18: a caixa dos campos (borda em input, raio md, branco; 16 px de
+ * texto no celular e no tablet, 14 no computador), com 10/12 px de respiro e altura
+ * mínima de 96 px; cresce com o redimensionar vertical do navegador. Placeholder em
+ * gray.700 (decisão 132).
+ */
+.kore-textarea {
+  @apply h-auto min-h-24 items-stretch py-2.5 lg:h-auto;
+}
+
+.kore-textarea__field {
+  @apply m-0 min-h-19 w-full resize-y border-0 bg-transparent p-0 text-ink outline-none placeholder:text-placeholder;
+  @apply disabled:cursor-not-allowed;
+}

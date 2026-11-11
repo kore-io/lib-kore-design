@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { expectNoA11yViolations } from '../../../../tests/a11y';
@@ -50,6 +50,23 @@ describe('FileUpload', () => {
     fireEvent.drop(zone, { dataTransfer: { files: [file, xlsx()] } });
     expect(onFile).toHaveBeenCalledOnce();
     expect(onFile).toHaveBeenCalledWith(file);
+    expect(zone).not.toHaveClass('kore-file-upload--dragging');
+  });
+
+  it('passar por cima do ícone ou do texto não apaga a marca; sair da área apaga', () => {
+    const { container } = renderUpload();
+    const zone = container.querySelector('.kore-file-upload') as HTMLElement;
+    const title = zone.querySelector('.kore-file-upload__title') as HTMLElement;
+    // O jsdom não tem DragEvent; o relatedTarget entra direto no evento.
+    const leave = (to: Element) => {
+      const event = createEvent.dragLeave(zone);
+      Object.defineProperty(event, 'relatedTarget', { value: to });
+      fireEvent(zone, event);
+    };
+    fireEvent.dragOver(zone);
+    leave(title);
+    expect(zone).toHaveClass('kore-file-upload--dragging');
+    leave(document.body);
     expect(zone).not.toHaveClass('kore-file-upload--dragging');
   });
 

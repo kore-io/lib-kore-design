@@ -56,7 +56,6 @@ describe('ActionMenu', () => {
     const onPadrinhos = vi.fn();
     render(
       <ActionMenu
-        label="não usado"
         trigger={<Button variant="secondary">Adicionar tag</Button>}
         groups={[
           [
@@ -76,12 +75,20 @@ describe('ActionMenu', () => {
         ]}
       />,
     );
-    expect(screen.queryByRole('button', { name: 'não usado' })).toBeNull();
     await user.click(screen.getByRole('button', { name: 'Adicionar tag' }));
     const item = screen.getByRole('menuitem', { name: 'Padrinhos' });
     expect(item.querySelector('.kore-tag--champagne')).not.toBeNull();
+    // O nome do item é o label, não o texto que o conteúdo traz.
+    expect(item).toHaveAttribute('aria-label', 'Padrinhos');
     await user.click(item);
     expect(onPadrinhos).toHaveBeenCalledOnce();
+  });
+
+  it('item só com texto não ganha aria-label (o texto já é o nome)', async () => {
+    const user = userEvent.setup();
+    renderMenu();
+    await user.click(screen.getByRole('button', { name: 'Ações de Família Moreira' }));
+    expect(screen.getByRole('menuitem', { name: 'Abrir' })).not.toHaveAttribute('aria-label');
   });
 
   it('a busca por letra usa o label, mesmo com conteúdo', async () => {
