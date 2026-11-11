@@ -52,7 +52,13 @@ export function FileUpload({
         event.preventDefault();
         if (!disabled) setDragging(true);
       }}
-      onDragLeave={() => setDragging(false)}
+      onDragLeave={(event) => {
+        // Passar por cima do ícone ou do texto dispara dragleave no label; só sai de fato
+        // quando o ponteiro vai para fora dele (senão a borda pisca).
+        const to = event.relatedTarget;
+        if (to instanceof Node && event.currentTarget.contains(to)) return;
+        setDragging(false);
+      }}
       onDrop={onDrop}
     >
       <input
