@@ -126,6 +126,12 @@
   @apply order-6 flex min-h-5 min-w-0 basis-full flex-wrap items-center gap-1;
 }
 
+/* Grupo sem tag: no cartão, a faixa some (sem o espaço vazio embaixo); na tabela, a
+   célula fica, para a coluna. */
+.kore-group-row__tags:empty {
+  @apply hidden lg:flex;
+}
+
 /* Linha da tabela (computador): as faixas do cartão somem, e as células seguem o DOM. */
 .kore-group-row {
   @apply lg:min-h-15.5 lg:flex-nowrap lg:gap-4 lg:rounded-none lg:border-0 lg:px-4 lg:py-3;
