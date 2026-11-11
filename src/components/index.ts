@@ -49,3 +49,5 @@ export {
   type GroupTableProps,
 } from './molecules/group-table/group-table';
 export { Dialog, type DialogProps } from './molecules/dialog/dialog';
+export { FileUpload, type FileUploadProps } from './molecules/file-upload/file-upload';
+export { StatCard, type StatCardProps } from './molecules/stat-card/stat-card';
