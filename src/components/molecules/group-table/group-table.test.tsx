@@ -99,6 +99,14 @@ describe('GroupTable, GroupTableHeader e GroupRow', () => {
     expect(empty).toHaveAttribute('aria-hidden', 'true');
   });
 
+  it('sem tag, a célula fica vazia (o cartão a esconde pelo CSS, a tabela mantém a coluna)', () => {
+    renderTable(row({ tags: [] }));
+    const [, groupRow] = screen.getAllByRole('row');
+    const cells = within(groupRow as HTMLElement).getAllByRole('cell');
+    expect(cells).toHaveLength(8);
+    expect(cells[6]).toBeEmptyDOMElement();
+  });
+
   it('sem linha de apoio, só a principal', () => {
     const { container } = renderTable(row({ responses: { primary: '1 confirmado' } }));
     const responses = container.querySelector('.kore-group-row__responses');
