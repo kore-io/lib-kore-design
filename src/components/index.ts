@@ -53,3 +53,4 @@ export { FileUpload, type FileUploadProps } from './molecules/file-upload/file-u
 export { StatCard, type StatCardProps } from './molecules/stat-card/stat-card';
 export { Textarea, type TextareaProps } from './atoms/textarea/textarea';
 export { Switch, type SwitchProps } from './atoms/switch/switch';
+export { Progress, type ProgressProps } from './atoms/progress/progress';
