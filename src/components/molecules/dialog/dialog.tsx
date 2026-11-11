@@ -18,6 +18,13 @@ export interface DialogProps {
    * lixeira); `dialog` para um diálogo com campo.
    */
   role?: 'alertdialog' | 'dialog';
+  /** `md` (440 px, o padrão) ou `lg` (520 px, ex.: Editar tag, com as cores numa linha). */
+  size?: 'md' | 'lg';
+  /**
+   * No celular (abaixo de 768 px), as ações ficam em coluna, em largura cheia e na ordem
+   * inversa (a principal em cima), quando não cabem numa linha (ex.: Editar tag).
+   */
+  stackActions?: boolean;
   /**
    * Para onde o foco volta ao fechar, quando quem abriu some (ex.: o item do menu ⋮, que
    * fecha junto): o app passa o botão ⋮. Sem isso, volta a quem tinha o foco ao abrir.
@@ -39,6 +46,8 @@ export function Dialog({
   children,
   actions,
   role = 'alertdialog',
+  size = 'md',
+  stackActions = false,
   returnFocusRef,
   className,
 }: DialogProps) {
@@ -61,7 +70,7 @@ export function Dialog({
             event.preventDefault();
             target.focus();
           }}
-          className="kore-dialog"
+          className={joinClassNames({ names: ['kore-dialog', size === 'lg' && 'kore-dialog--lg'] })}
           // O respiro de 16 px em volta do cartão é parte do Content: tocar nele fecha,
           // como no fundo.
           onPointerDown={(event) => {
@@ -77,7 +86,13 @@ export function Dialog({
               </RadixDialog.Description>
             )}
             {children}
-            <div className="kore-dialog__actions">{actions}</div>
+            <div
+              className={joinClassNames({
+                names: ['kore-dialog__actions', stackActions && 'kore-dialog__actions--stack'],
+              })}
+            >
+              {actions}
+            </div>
           </div>
         </RadixDialog.Content>
       </RadixDialog.Portal>

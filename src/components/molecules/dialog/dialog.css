@@ -22,6 +22,10 @@
   @apply fixed inset-0 z-50 m-auto flex h-fit max-h-dvh max-w-118 flex-col p-4 outline-none;
 }
 
+.kore-dialog--lg {
+  @apply max-w-138;
+}
+
 .kore-dialog__card {
   @apply flex min-h-0 flex-col gap-4 overflow-y-auto rounded-lg bg-white p-6 shadow-lg;
 }
@@ -44,4 +48,9 @@
 
 .kore-dialog__actions {
   @apply flex flex-wrap items-center justify-end gap-2 pt-2;
+}
+
+/* Ações empilhadas no celular: a principal (a última no DOM) em cima, largura cheia. */
+.kore-dialog__actions--stack {
+  @apply max-md:flex-col-reverse max-md:items-stretch;
 }
