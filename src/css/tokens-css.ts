@@ -9,7 +9,7 @@ import {
   shadows,
   spacing,
 } from '../tokens/layout';
-import { overlayColor, semanticColorRefs } from '../tokens/semantic';
+import { overlayColor, semanticColorRefs, tagColorRefs } from '../tokens/semantic';
 import {
   siteBackgrounds,
   siteColors,
@@ -108,6 +108,10 @@ export function semanticDeclarations(): Declarations {
     out[`--${name}`] = `var(--kore-${path.replace('.', '-')})`;
   }
   out['--overlay'] = overlayColor;
+  for (const [name, { tint, text }] of Object.entries(tagColorRefs)) {
+    out[`--tag-${name}-tint`] = `var(--kore-${tint.replace('.', '-')})`;
+    out[`--tag-${name}-text`] = `var(--kore-${text.replace('.', '-')})`;
+  }
   return out;
 }
 
