@@ -134,6 +134,41 @@ describe('Dialog', () => {
     expect(screen.getByRole('textbox', { name: 'Grupo' })).toBeInTheDocument();
   });
 
+  it('tamanho lg e ações empilhadas no celular viram classes do DS', () => {
+    render(
+      <Dialog
+        open
+        onOpenChange={() => undefined}
+        role="dialog"
+        size="lg"
+        stackActions
+        title="Editar tag"
+        actions={<Button>Salvar alterações</Button>}
+      />,
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Editar tag' });
+    expect(dialog).toHaveClass('kore-dialog', 'kore-dialog--lg');
+    expect(screen.getByRole('button', { name: 'Salvar alterações' }).parentElement).toHaveClass(
+      'kore-dialog__actions',
+      'kore-dialog__actions--stack',
+    );
+  });
+
+  it('o padrão é md, com as ações em linha', () => {
+    render(
+      <Dialog
+        open
+        onOpenChange={() => undefined}
+        title="Regenerar link"
+        actions={<Button>Ok</Button>}
+      />,
+    );
+    expect(screen.getByRole('alertdialog')).not.toHaveClass('kore-dialog--lg');
+    expect(screen.getByRole('button', { name: 'Ok' }).parentElement).not.toHaveClass(
+      'kore-dialog__actions--stack',
+    );
+  });
+
   it('é acessível aberto', async () => {
     const user = userEvent.setup();
     render(<Confirm />);
