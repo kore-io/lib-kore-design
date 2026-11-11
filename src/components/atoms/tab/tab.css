@@ -1,0 +1,22 @@
+/*
+ * Tab do DS v0.18: 38 px, 8 px em cima e 4 px nas laterais, texto em type.label em
+ * gray.700 e, 8 px abaixo, o sublinhado de 40 x 2 px, centrado. Ativo: texto em
+ * primary.dark e sublinhado em ring (primary.base). O DS não tem estado Hover.
+ * Área de toque: 3 px a mais em cima e embaixo, dos 38 aos 44 px do Brand Kit.
+ * A linha rola na horizontal se as abas não couberem, sem rolar a página; os 3 px de
+ * respiro (com a margem negativa, para não mudar o layout) guardam a área de toque.
+ */
+.kore-tabs {
+  @apply -my-0.75 flex max-w-full gap-1 overflow-x-auto py-0.75;
+}
+
+.kore-tab {
+  @apply type-label relative flex h-9.5 shrink-0 flex-col items-center gap-2 px-1 pt-2 whitespace-nowrap text-gray-700;
+  @apply before:absolute before:inset-x-0 before:-inset-y-0.75;
+  @apply after:h-0.5 after:w-10 after:shrink-0 after:bg-transparent;
+  @apply focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
+}
+
+.kore-tab--current {
+  @apply text-primary-dark after:bg-ring;
+}
