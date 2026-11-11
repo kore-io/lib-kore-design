@@ -25,9 +25,10 @@ export function Checkbox({
   const inputRef = useRef<HTMLInputElement>(null);
   useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
+  // A cada render: o clique limpa o `indeterminate` nativo, e a prop pode continuar `true`.
   useEffect(() => {
     if (inputRef.current) inputRef.current.indeterminate = indeterminate;
-  }, [indeterminate]);
+  });
 
   return (
     <label className={joinClassNames({ names: ['kore-checkbox', className] })}>

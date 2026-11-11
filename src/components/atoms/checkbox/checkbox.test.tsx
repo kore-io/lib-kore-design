@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
+import { createRef, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { expectNoA11yViolations } from '../../../../tests/a11y';
 import { Checkbox } from './checkbox';
@@ -45,6 +45,24 @@ describe('Checkbox', () => {
     expect(checkbox).toBePartiallyChecked();
     rerender(<Checkbox aria-label="Selecionar todos" onChange={() => undefined} />);
     expect(checkbox.indeterminate).toBe(false);
+  });
+
+  it('volta a indeterminado depois do clique se a prop continua true', async () => {
+    const user = userEvent.setup();
+    function Controlled() {
+      const [count, setCount] = useState(0);
+      return (
+        <Checkbox
+          aria-label={`Selecionar todos ${count}`}
+          indeterminate
+          checked={false}
+          onChange={() => setCount((value) => value + 1)}
+        />
+      );
+    }
+    render(<Controlled />);
+    await user.click(screen.getByRole('checkbox'));
+    expect(screen.getByRole<HTMLInputElement>('checkbox').indeterminate).toBe(true);
   });
 
   it('desabilitado não marca', async () => {
