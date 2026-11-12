@@ -1,0 +1,31 @@
+/*
+ * Controle segmentado (Penpot, Área do Convidado, "Barra da prévia"): borda gray.500 com
+ * radius.md e 2 px de respiro; cada segmento em type.label, com radius.sm; o ativo com
+ * fundo white e texto ink. A área de toque de cada segmento cresce até os 44 px do Brand
+ * Kit. Desabilitado a 45%.
+ */
+.kore-segmented {
+  @apply inline-flex items-center gap-0.5 rounded-md border border-gray-500 p-0.5;
+}
+
+.kore-segmented__option {
+  @apply relative cursor-pointer;
+  @apply before:absolute before:inset-x-0 before:-inset-y-2;
+  @apply has-disabled:cursor-not-allowed has-disabled:opacity-45;
+}
+
+.kore-segmented__input {
+  @apply sr-only;
+}
+
+.kore-segmented__label {
+  @apply block rounded-sm px-3 py-1.5 type-label;
+}
+
+.kore-segmented__input:checked + .kore-segmented__label {
+  @apply bg-white text-ink;
+}
+
+.kore-segmented__input:focus-visible + .kore-segmented__label {
+  @apply shadow-focus-ring outline-2 outline-paper;
+}
