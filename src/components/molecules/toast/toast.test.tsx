@@ -61,6 +61,41 @@ describe('Toast', () => {
     });
   });
 
+  it('com ação: o botão da ação, que chama o app e fecha o aviso; não sai sozinho', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    function WithAction() {
+      const { showToast } = useToast();
+      return (
+        <button
+          type="button"
+          onClick={() =>
+            showToast({
+              tone: 'danger',
+              message: 'O navegador bloqueou a nova aba.',
+              action: { label: 'Abrir a prévia', onClick },
+            })
+          }
+        >
+          Mostrar
+        </button>
+      );
+    }
+    render(
+      <ToastProvider label="Avisos" dismissLabel="Fechar" duration={50}>
+        <WithAction />
+      </ToastProvider>,
+    );
+    await user.click(screen.getByRole('button', { name: 'Mostrar' }));
+    // Passada a duração dos outros avisos, o com ação continua.
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    const action = screen.getByRole('button', { name: 'Abrir a prévia' });
+    expect(action).toHaveClass('kore-toast__action');
+    await user.click(action);
+    expect(onClick).toHaveBeenCalledOnce();
+    await waitFor(() => expect(document.querySelector('.kore-toast')).toBeNull());
+  });
+
   it('useToast sem o provider avisa o erro', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
     expect(() => render(<Trigger tone="success" message="x" />)).toThrow(/ToastProvider/);

@@ -6,14 +6,25 @@ import { joinClassNames } from '../../../lib/class-names';
 /** Tipos do DS: Sucesso e Erro (o Erro usa o ícone Info, como no Penpot). */
 export type ToastTone = 'success' | 'danger';
 
-interface ToastItem {
-  id: number;
+/** Uma ação no Toast (ex.: "Abrir a prévia" quando o navegador bloqueia a nova aba). */
+export interface ToastAction {
+  label: string;
+  onClick: () => void;
+}
+
+export interface ToastOptions {
   tone: ToastTone;
   message: string;
+  /** Com ação, o Toast fica até ser usado ou fechado, para dar tempo de tocar. */
+  action?: ToastAction;
+}
+
+interface ToastItem extends ToastOptions {
+  id: number;
 }
 
 interface ToastContextValue {
-  showToast: (toast: { tone: ToastTone; message: string }) => void;
+  showToast: (toast: ToastOptions) => void;
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
@@ -47,8 +58,8 @@ export function ToastProvider({
 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  const showToast = useCallback(({ tone, message }: { tone: ToastTone; message: string }) => {
-    setToasts((current) => [...current, { id: Date.now() + Math.random(), tone, message }]);
+  const showToast = useCallback((toast: ToastOptions) => {
+    setToasts((current) => [...current, { ...toast, id: Date.now() + Math.random() }]);
   }, []);
 
   const value = useMemo(() => ({ showToast }), [showToast]);
@@ -67,7 +78,8 @@ export function ToastProvider({
             <RadixToast.Root
               key={toast.id}
               className={joinClassNames({ names: ['kore-toast', `kore-toast--${toast.tone}`] })}
-              type={toast.tone === 'danger' ? 'foreground' : 'background'}
+              type={toast.tone === 'danger' || toast.action ? 'foreground' : 'background'}
+              {...(toast.action && { duration: Infinity })}
               onOpenChange={(open) => {
                 if (!open) remove({ id: toast.id });
               }}
@@ -76,6 +88,15 @@ export function ToastProvider({
               <RadixToast.Description className="kore-toast__message">
                 {toast.message}
               </RadixToast.Description>
+              {toast.action && (
+                <RadixToast.Action
+                  className="kore-toast__action"
+                  altText={toast.action.label}
+                  onClick={toast.action.onClick}
+                >
+                  {toast.action.label}
+                </RadixToast.Action>
+              )}
               <RadixToast.Close className="kore-toast__close" aria-label={dismissLabel}>
                 <X aria-hidden="true" strokeWidth={1.75} />
               </RadixToast.Close>

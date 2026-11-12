@@ -31,6 +31,8 @@ export { EmptyState, type EmptyStateProps } from './molecules/empty-state/empty-
 export {
   ToastProvider,
   useToast,
+  type ToastAction,
+  type ToastOptions,
   type ToastProviderProps,
   type ToastTone,
 } from './molecules/toast/toast';
@@ -52,5 +54,10 @@ export { Dialog, type DialogProps } from './molecules/dialog/dialog';
 export { FileUpload, type FileUploadProps } from './molecules/file-upload/file-upload';
 export { StatCard, type StatCardProps } from './molecules/stat-card/stat-card';
 export { Textarea, type TextareaProps } from './atoms/textarea/textarea';
+export {
+  SegmentedControl,
+  type SegmentedControlProps,
+  type SegmentedOption,
+} from './atoms/segmented-control/segmented-control';
 export { Switch, type SwitchProps } from './atoms/switch/switch';
 export { Progress, type ProgressProps } from './atoms/progress/progress';
