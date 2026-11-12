@@ -1,7 +1,8 @@
 /*
  * Toast do DS v0.16: cartão branco, borda gray.300, raio lg, shadow.md, 12/14 px de
  * respiro e 12 px entre o ícone (24 px: success.text ou danger.text), o texto em body.md
- * e o X de 12 px em gray.700 (área de toque de 44 px). No topo, centralizado.
+ * e o X de 12 px em gray.700 (área de toque de 44 px). No topo, centralizado. A ação, quando
+ * há, é um texto em type.label primary.dark sublinhado, antes do X (o DS não tem a variante).
  */
 .kore-toast-viewport {
   @apply pointer-events-none fixed inset-x-0 top-4 z-50 flex list-none flex-col items-center gap-2 px-4 outline-none;
@@ -33,6 +34,12 @@
 
 .kore-toast__message {
   @apply type-body-md min-w-0 flex-1 text-ink;
+}
+
+.kore-toast__action {
+  @apply relative shrink-0 cursor-pointer type-label text-primary-dark underline underline-offset-2;
+  @apply after:absolute after:-inset-x-2 after:-inset-y-3;
+  @apply focus-visible:rounded-sm focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
 }
 
 .kore-toast__close {

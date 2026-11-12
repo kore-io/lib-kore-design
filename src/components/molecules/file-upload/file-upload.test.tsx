@@ -70,6 +70,35 @@ describe('FileUpload', () => {
     expect(zone).not.toHaveClass('kore-file-upload--dragging');
   });
 
+  it('com multiple, o seletor e a área entregam todos os arquivos, na ordem', async () => {
+    const user = userEvent.setup();
+    const onFiles = vi.fn();
+    const { container } = render(
+      <FileUpload
+        multiple
+        title="Arrastem as fotos ou cliquem para escolher"
+        hint="JPG ou PNG, até 12 fotos."
+        accept="image/jpeg,image/png"
+        onFiles={onFiles}
+      />,
+    );
+    const input = screen.getByLabelText(/Arrastem as fotos/);
+    expect(input).toHaveAttribute('multiple');
+    const photos = ['1.jpg', '2.jpg', '3.png'].map(
+      (name) => new File(['x'], name, { type: 'image/jpeg' }),
+    );
+    await user.upload(input, photos);
+    expect(onFiles).toHaveBeenLastCalledWith(photos);
+    const zone = container.querySelector('.kore-file-upload') as HTMLElement;
+    fireEvent.drop(zone, { dataTransfer: { files: photos.slice(0, 2) } });
+    expect(onFiles).toHaveBeenLastCalledWith(photos.slice(0, 2));
+  });
+
+  it('sem multiple, o input aceita um arquivo só', () => {
+    renderUpload();
+    expect(screen.getByLabelText(/Arrastem a planilha/)).not.toHaveAttribute('multiple');
+  });
+
   it('desabilitado não aceita soltar nem escolher', () => {
     const { onFile, container } = renderUpload({ disabled: true });
     const zone = container.querySelector('.kore-file-upload') as HTMLElement;
