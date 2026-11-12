@@ -2,7 +2,7 @@ import { UploadCloud } from 'lucide-react';
 import { useState, type DragEvent, type ReactNode } from 'react';
 import { joinClassNames } from '../../../lib/class-names';
 
-export interface FileUploadProps {
+interface FileUploadBaseProps {
   /** Texto principal (do app, ex.: "Arrastem a planilha ou cliquem para escolher"). */
   title: ReactNode;
   /** Linha de apoio (ex.: "Excel (.xlsx) com até 1.000 linhas"). */
@@ -10,10 +10,23 @@ export interface FileUploadProps {
   /** Tipos aceitos pelo seletor do sistema (atributo `accept` do input). */
   accept?: string;
   disabled?: boolean;
-  /** O arquivo escolhido pelo seletor ou solto na área (o primeiro, se vierem vários). */
-  onFile: (file: File) => void;
   className?: string;
 }
+
+interface FileUploadSingleProps extends FileUploadBaseProps {
+  multiple?: false;
+  /** O arquivo escolhido pelo seletor ou solto na área (o primeiro, se vierem vários). */
+  onFile: (file: File) => void;
+}
+
+interface FileUploadMultipleProps extends FileUploadBaseProps {
+  /** Vários arquivos de uma vez (ex.: as fotos de Nossa história). */
+  multiple: true;
+  /** Os arquivos escolhidos ou soltos, na ordem em que vieram. */
+  onFiles: (files: File[]) => void;
+}
+
+export type FileUploadProps = FileUploadSingleProps | FileUploadMultipleProps;
 
 /**
  * File Upload do DS v0.18 (Estado Vazio): a área tracejada para arrastar um arquivo ou
@@ -21,21 +34,21 @@ export interface FileUploadProps {
  * acessível (teclado e leitor de tela de graça); o título e a linha de apoio são o nome
  * do campo. Arrastando por cima, a borda fica em ring.
  */
-export function FileUpload({
-  title,
-  hint,
-  accept,
-  disabled = false,
-  onFile,
-  className,
-}: FileUploadProps) {
+export function FileUpload(props: FileUploadProps) {
+  const { title, hint, accept, disabled = false, className } = props;
   const [dragging, setDragging] = useState(false);
+
+  function deliver(list: FileList | null | undefined) {
+    const files = Array.from(list ?? []);
+    if (files.length === 0) return;
+    if (props.multiple) props.onFiles(files);
+    else if (files[0]) props.onFile(files[0]);
+  }
 
   function onDrop(event: DragEvent<HTMLLabelElement>) {
     event.preventDefault();
     setDragging(false);
-    const file = event.dataTransfer.files[0];
-    if (file && !disabled) onFile(file);
+    if (!disabled) deliver(event.dataTransfer.files);
   }
 
   return (
@@ -65,10 +78,10 @@ export function FileUpload({
         type="file"
         className="kore-file-upload__input"
         accept={accept}
+        multiple={props.multiple ?? false}
         disabled={disabled}
         onChange={(event) => {
-          const file = event.target.files?.[0];
-          if (file) onFile(file);
+          deliver(event.target.files);
           // O mesmo arquivo pode ser escolhido de novo (ex.: depois de corrigir).
           event.target.value = '';
         }}
