@@ -34,6 +34,23 @@
   @apply text-destructive;
 }
 
+/*
+ * Item desabilitado (Penpot, Painel do grupo — colaboradora depois do prazo; C3 da F4): o
+ * rótulo com 50% de opacidade, como o desabilitado do DS, sem o cursor de clique, e o
+ * motivo abaixo em type.caption gray.700, legível; o foco continua visível.
+ */
+.kore-action-menu__item--disabled {
+  @apply cursor-not-allowed flex-col items-start gap-0.5;
+}
+
+.kore-action-menu__item--disabled .kore-action-menu__label {
+  @apply opacity-50;
+}
+
+.kore-action-menu__reason {
+  @apply type-caption text-gray-700;
+}
+
 .kore-action-menu__separator {
   @apply my-1 h-px bg-gray-300;
 }
