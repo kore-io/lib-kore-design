@@ -1,0 +1,15 @@
+/*
+ * Spinner do DS v0.18, Tamanho P: o Icon / Loader (círculo aberto) de 16 px, girando,
+ * em gray.700. O rótulo é só para o leitor de tela.
+ */
+.kore-spinner {
+  @apply inline-flex size-4 shrink-0 items-center justify-center text-gray-700;
+}
+
+.kore-spinner__icon {
+  @apply size-4 animate-spin;
+}
+
+.kore-spinner__label {
+  @apply sr-only;
+}

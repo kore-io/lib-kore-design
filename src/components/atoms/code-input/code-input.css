@@ -1,0 +1,18 @@
+/*
+ * Code Input do DS v0.16: casas de 52 x 56 px. O texto segue o Input: 16 px no
+ * celular e tablet, 14 px no computador.
+ */
+.kore-code-input {
+  @apply flex w-full max-w-100 justify-between gap-2;
+}
+
+.kore-code-input__cell {
+  @apply h-14 w-13 min-w-0 rounded-md border border-input bg-white text-center text-ink outline-none;
+  @apply type-body-lg lg:type-body-md;
+  @apply focus:border-ring focus:inset-ring focus:inset-ring-ring;
+  @apply disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60;
+}
+
+.kore-code-input--invalid .kore-code-input__cell {
+  @apply border-1.5 border-danger-text;
+}

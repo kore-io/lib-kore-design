@@ -1,0 +1,40 @@
+/* Badge do DS v0.16: pílula de 24 px, 10 px nas laterais (8 à esquerda com ícone). */
+.kore-badge {
+  @apply type-label inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 whitespace-nowrap;
+}
+
+.kore-badge--with-icon {
+  @apply pl-2;
+}
+
+.kore-badge__icon {
+  @apply inline-flex size-3.5 shrink-0 items-center justify-center;
+}
+
+.kore-badge__icon > svg {
+  @apply size-full;
+}
+
+.kore-badge--info {
+  @apply bg-info-tint text-info-text;
+}
+
+.kore-badge--success {
+  @apply bg-success-tint text-success-text;
+}
+
+.kore-badge--warning {
+  @apply bg-warning-tint text-warning-text;
+}
+
+.kore-badge--danger {
+  @apply bg-danger-tint text-danger-text;
+}
+
+.kore-badge--neutral {
+  @apply bg-gray-100 text-gray-700;
+}
+
+.kore-badge--highlight {
+  @apply bg-accent-base text-ink;
+}

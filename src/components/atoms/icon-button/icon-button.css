@@ -1,0 +1,18 @@
+/*
+ * Botão de ícone do DS v0.16 (Topbar e drawer): 40 px, redondo, ícone em ink. O
+ * contador é um círculo de 18 px em primary.dark com type.overline branco, a 24 px da
+ * esquerda e 4 px do topo.
+ */
+.kore-icon-button {
+  @apply relative inline-flex size-10 shrink-0 items-center justify-center rounded-full text-ink transition;
+  @apply after:absolute after:-inset-0.5;
+  @apply focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
+}
+
+.kore-icon-button__icon {
+  @apply inline-flex items-center justify-center;
+}
+
+.kore-icon-button__count {
+  @apply type-overline absolute top-1 left-6 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-primary-dark px-1.25 text-white;
+}

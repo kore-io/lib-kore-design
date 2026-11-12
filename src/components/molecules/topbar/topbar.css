@@ -1,0 +1,28 @@
+/*
+ * Topbar do DS v0.16: 64 px mais a linha de 1 px em border, fundo background. Respiro
+ * de 16 px no celular e 24 px a partir do tablet. O ☰ some a partir de 1024 px (Sidebar
+ * fixa) e o selo de status some no celular. Ações com 8 px no celular e 16 px depois.
+ */
+.kore-topbar {
+  @apply flex h-16.25 items-center justify-between gap-3 border-b border-border bg-background px-4 md:px-6;
+}
+
+.kore-topbar__start {
+  @apply flex min-w-0 items-center gap-3;
+}
+
+.kore-topbar__menu-button {
+  @apply lg:hidden;
+}
+
+.kore-topbar__title {
+  @apply type-heading truncate text-ink;
+}
+
+.kore-topbar__status {
+  @apply hidden shrink-0 md:flex;
+}
+
+.kore-topbar__actions {
+  @apply flex shrink-0 items-center gap-2 md:gap-4;
+}

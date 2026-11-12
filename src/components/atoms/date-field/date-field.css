@@ -1,0 +1,31 @@
+/* Date Field do DS v0.16: ícone de calendário à esquerda e o campo de data nativo. */
+.kore-date-field__icon {
+  @apply size-6 shrink-0 text-gray-700;
+}
+
+.kore-date-field__field {
+  @apply h-full min-w-0 flex-1 bg-transparent outline-none disabled:cursor-not-allowed;
+}
+
+/* A seta do navegador some: o calendário do DS já está à esquerda. */
+.kore-date-field__field::-webkit-calendar-picker-indicator {
+  @apply hidden;
+}
+
+/*
+ * O Firefox desenha o próprio botão de calendário, que não dá para esconder. Lá o
+ * ícone do DS sai, para não haver dois. Só o Firefox aceita -moz-appearance.
+ */
+@supports (-moz-appearance: none) {
+  .kore-date-field__icon {
+    @apply hidden;
+  }
+}
+
+.kore-date-field--empty .kore-date-field__field {
+  @apply text-placeholder;
+}
+
+.kore-date-field__error-icon {
+  @apply size-6 shrink-0 text-danger-text;
+}

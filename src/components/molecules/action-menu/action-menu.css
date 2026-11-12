@@ -1,0 +1,39 @@
+/*
+ * Menu de ações do DS v0.18. Gatilho (Menu do grupo no Group Row): 32 px, raio md, o
+ * Icon / More Vertical de 20 px em ink; área de toque de 44 px (6 px a mais de cada
+ * lado). Popover: 220 px, branco, borda gray.300, raio md, shadow.md, 6 px de respiro;
+ * itens de 36 px (8/10 px), raio sm, type.body.md em ink; o destrutivo em destructive;
+ * linha gray.300 com 4 px em cima e embaixo entre os grupos.
+ * Escolha do código, sem par no Penpot: 4 px (space.1) entre o gatilho e o popover. O
+ * foco do item é o mesmo do Menu do usuário (contorno em ring).
+ */
+.kore-action-menu__trigger {
+  @apply relative inline-flex size-8 shrink-0 items-center justify-center rounded-md text-ink transition;
+  @apply after:absolute after:-inset-1.5;
+  @apply focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
+}
+
+.kore-action-menu__popover {
+  @apply z-50 flex w-55 flex-col rounded-md border border-gray-300 bg-white p-1.5 shadow-md outline-none;
+}
+
+.kore-action-menu__popover[data-state='open'] {
+  @apply animate-popover-in motion-reduce:animate-reduced-in;
+}
+
+.kore-action-menu__popover[data-state='closed'] {
+  @apply animate-popover-out motion-reduce:animate-reduced-out;
+}
+
+.kore-action-menu__item {
+  @apply type-body-md flex min-h-9 w-full cursor-pointer items-center gap-2 rounded-sm px-2.5 py-2 text-ink outline-none;
+  @apply focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring;
+}
+
+.kore-action-menu__item--destructive {
+  @apply text-destructive;
+}
+
+.kore-action-menu__separator {
+  @apply my-1 h-px bg-gray-300;
+}

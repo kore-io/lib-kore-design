@@ -1,0 +1,286 @@
+{
+  "_source": "Penpot, arquivo Design system (24d9d841-759d-81bc-8008-b2baa50d6c08), versão 'DS v0.18 — cores de tag', lido pelo MCP em 10/11/2026. Valores brutos (antes de resolver).",
+  "Kore/Core": {
+    "color.primary.dark": "#74233D",
+    "color.primary.darker": "#5C1A30",
+    "color.primary.base": "#9B3552",
+    "color.primary.tint": "#F6E6EB",
+    "color.accent.base": "#B8925A",
+    "color.accent.tint": "#F5EDE0",
+    "color.ink": "#241A1E",
+    "color.paper": "#FCFAF7",
+    "color.white": "#FFFFFF",
+    "color.gray.100": "#F4EFEF",
+    "color.gray.300": "#E3D9DB",
+    "color.gray.500": "#9A8E91",
+    "color.gray.700": "#5C5055",
+    "color.success.base": "#2E9E6B",
+    "color.success.text": "#1E6B48",
+    "color.success.tint": "#E4F4EC",
+    "color.warning.base": "#E8A13A",
+    "color.warning.text": "#8A5A12",
+    "color.warning.tint": "#FCF1DE",
+    "color.danger.base": "#D9534F",
+    "color.danger.text": "#A12F2B",
+    "color.danger.tint": "#FBE9E8",
+    "color.info.base": "#3D7FD9",
+    "color.info.text": "#1F5596",
+    "color.info.tint": "#E6EFFB",
+    "color.danger.darker": "#85231F",
+    "color.gray.600": "#8C7F83",
+    "site.swatch.terracota.primary": "#A94F37",
+    "site.swatch.terracota.accent": "#7A8B69",
+    "site.swatch.salvia.primary": "#566C4B",
+    "site.swatch.salvia.accent": "#C9A66B",
+    "site.swatch.rose.primary": "#A3545E",
+    "site.swatch.rose.accent": "#8C9A7E",
+    "site.swatch.marfim.primary": "#7D6036",
+    "site.swatch.marfim.accent": "#1F2A44",
+    "site.swatch.marinho.primary": "#1F2A44",
+    "site.swatch.marinho.accent": "#B08D57",
+    "site.swatch.areia.primary": "#2F6F7E",
+    "site.swatch.areia.accent": "#D9A06B",
+    "site.swatch.por-do-sol.primary": "#B24F34",
+    "site.swatch.por-do-sol.accent": "#2F6F7E",
+    "site.swatch.grafite.primary": "#222222",
+    "site.swatch.grafite.accent": "#9A8C7A",
+    "site.swatch.noite.primary": "#E7D3B0",
+    "site.swatch.noite.accent": "#9A8C7A"
+  },
+  "Kore/Semantic": {
+    "background": "{color.paper}",
+    "foreground": "{color.ink}",
+    "card": "{color.white}",
+    "card-foreground": "{color.ink}",
+    "primary": "{color.primary.dark}",
+    "primary-foreground": "{color.paper}",
+    "primary-hover": "{color.primary.darker}",
+    "secondary": "{color.gray.100}",
+    "secondary-foreground": "{color.ink}",
+    "muted": "{color.gray.100}",
+    "muted-foreground": "{color.gray.700}",
+    "accent": "{color.primary.tint}",
+    "accent-foreground": "{color.primary.dark}",
+    "highlight": "{color.accent.base}",
+    "highlight-foreground": "{color.ink}",
+    "destructive": "{color.danger.text}",
+    "destructive-foreground": "{color.paper}",
+    "border": "{color.gray.300}",
+    "input": "{color.gray.600}",
+    "ring": "{color.primary.base}",
+    "placeholder": "{color.gray.700}",
+    "destructive-hover": "{color.danger.darker}",
+    "color.overlay": "rgba(36, 26, 30, 0.4)",
+    "color.tag.wine.tint": "{color.primary.tint}",
+    "color.tag.wine.text": "{color.primary.dark}",
+    "color.tag.champagne.tint": "{color.accent.base}",
+    "color.tag.champagne.text": "{color.ink}",
+    "color.tag.green.tint": "{color.success.tint}",
+    "color.tag.green.text": "{color.success.text}",
+    "color.tag.amber.tint": "{color.warning.tint}",
+    "color.tag.amber.text": "{color.warning.text}",
+    "color.tag.red.tint": "{color.danger.tint}",
+    "color.tag.red.text": "{color.danger.text}",
+    "color.tag.blue.tint": "{color.info.tint}",
+    "color.tag.blue.text": "{color.info.text}"
+  },
+  "Kore/Typography": {
+    "font.display": "Cormorant Garamond",
+    "font.body": "Nunito Sans",
+    "weight.regular": "400",
+    "weight.semibold": "600",
+    "weight.bold": "700",
+    "type.display.xl": {
+      "font": "display",
+      "size": 48,
+      "weight": "semibold",
+      "lineHeight": 1.083,
+      "letterSpacing": 0
+    },
+    "type.display.lg": {
+      "font": "display",
+      "size": 36,
+      "weight": "semibold",
+      "lineHeight": 1.167,
+      "letterSpacing": 0
+    },
+    "type.display.md": {
+      "font": "display",
+      "size": 28,
+      "weight": "semibold",
+      "lineHeight": 1.214,
+      "letterSpacing": 0
+    },
+    "type.display.sm": {
+      "font": "display",
+      "size": 24,
+      "weight": "semibold",
+      "lineHeight": 1.25,
+      "letterSpacing": 0
+    },
+    "type.heading": {
+      "font": "body",
+      "size": 18,
+      "weight": "bold",
+      "lineHeight": 1.444,
+      "letterSpacing": 0
+    },
+    "type.body.lg": {
+      "font": "body",
+      "size": 16,
+      "weight": "regular",
+      "lineHeight": 1.5,
+      "letterSpacing": 0
+    },
+    "type.body.md": {
+      "font": "body",
+      "size": 14,
+      "weight": "regular",
+      "lineHeight": 1.429,
+      "letterSpacing": 0
+    },
+    "type.label": {
+      "font": "body",
+      "size": 14,
+      "weight": "semibold",
+      "lineHeight": 1.429,
+      "letterSpacing": 0
+    },
+    "type.caption": {
+      "font": "body",
+      "size": 12,
+      "weight": "regular",
+      "lineHeight": 1.333,
+      "letterSpacing": 0
+    },
+    "type.overline": {
+      "font": "body",
+      "size": 11,
+      "weight": "bold",
+      "lineHeight": 1.455,
+      "letterSpacing": 0.9,
+      "textCase": "uppercase"
+    },
+    "type.label-lg": {
+      "font": "body",
+      "size": 16,
+      "weight": "semibold",
+      "lineHeight": 1.5,
+      "letterSpacing": 0
+    },
+    "type.number": {
+      "font": "body",
+      "size": 28,
+      "weight": "bold",
+      "lineHeight": 1.214,
+      "letterSpacing": 0
+    },
+    "type.link": {
+      "font": "body",
+      "size": 14,
+      "weight": "semibold",
+      "lineHeight": 1.429,
+      "letterSpacing": 0,
+      "textDecoration": "underline"
+    }
+  },
+  "Kore/Spacing": {
+    "space.1": 4,
+    "space.2": 8,
+    "space.3": 12,
+    "space.4": 16,
+    "space.5": 20,
+    "space.6": 24,
+    "space.8": 32,
+    "space.10": 40,
+    "space.12": 48,
+    "space.16": 64
+  },
+  "Kore/Radius": {
+    "radius.sm": 6,
+    "radius.md": 10,
+    "radius.lg": 16,
+    "radius.xl": 24,
+    "radius.full": 999
+  },
+  "Kore/Shadow": {
+    "shadow.sm": { "x": 0, "y": 1, "blur": 2, "spread": 0, "color": "rgba(36,26,30,0.06)" },
+    "shadow.md": { "x": 0, "y": 4, "blur": 12, "spread": 0, "color": "rgba(36,26,30,0.08)" },
+    "shadow.lg": { "x": 0, "y": 12, "blur": 32, "spread": 0, "color": "rgba(36,26,30,0.12)" },
+    "focus-ring": { "x": 0, "y": 0, "blur": 0, "spread": 5, "color": "{color.primary.base}" }
+  },
+  "Bordas fracionárias dos componentes (fora de ícones)": {
+    "1.5": [
+      "Input {Erro}",
+      "Code Input {Erro}",
+      "Select {Erro}",
+      "Radio {Desmarcado}",
+      "Checkbox {Desmarcado}",
+      "File Upload {Vazio}",
+      "Group Table Header > Control",
+      "Group Row > Control"
+    ]
+  },
+  "02 · Motion (padrões)": {
+    "Drawer (Sidebar no celular e no tablet)": "Entra da esquerda; o fundo escurece por opacidade junto · motion.slow",
+    "Sair": "o mesmo, ao contrário, com a duração um passo abaixo",
+    "Menu ⋮, popover, tooltip": "Entra com opacidade e 4 px de deslocamento a partir do gatilho; sai em motion.fast · motion.base",
+    "Toast": "Entra de baixo com 8 px; sai sozinho depois de 5 s, por opacidade · motion.base",
+    "Modal (desktop) e folha inferior (celular)": "Modal: opacidade e escala 0,96 → 1. Folha: sobe da borda de baixo · motion.slow",
+    "Movimento reduzido": "Só a opacidade muda, em motion.base"
+  },
+  "Kore/Motion": {
+    "motion.fast": 120,
+    "motion.base": 200,
+    "motion.slow": 320,
+    "motion.distance": 8
+  },
+  "Site/Fontes": {
+    "Romântico": { "display": "Cormorant Garamond", "body": "Lato" },
+    "Clássico": { "display": "Playfair Display", "body": "Source Sans 3" },
+    "Leve": { "display": "Josefin Sans", "body": "Nunito Sans" },
+    "Moderno": { "display": "DM Serif Display", "body": "Inter" }
+  },
+  "Site/Cores": {
+    "Terracota": { "primary": "#A94F37", "primary-foreground": "#FFFFFF", "accent": "#7A8B69" },
+    "Sálvia": { "primary": "#566C4B", "primary-foreground": "#FFFFFF", "accent": "#C9A66B" },
+    "Rosé": { "primary": "#A3545E", "primary-foreground": "#FFFFFF", "accent": "#8C9A7E" },
+    "Marfim": { "primary": "#7D6036", "primary-foreground": "#FFFFFF", "accent": "#1F2A44" },
+    "Marinho": { "primary": "#1F2A44", "primary-foreground": "#FFFFFF", "accent": "#B08D57" },
+    "Areia": { "primary": "#2F6F7E", "primary-foreground": "#FFFFFF", "accent": "#D9A06B" },
+    "Pôr do sol": { "primary": "#B24F34", "primary-foreground": "#FFFFFF", "accent": "#2F6F7E" },
+    "Grafite": { "primary": "#222222", "primary-foreground": "#FFFFFF", "accent": "#9A8C7A" },
+    "Noite": { "primary": "#E7D3B0", "primary-foreground": "#15171C", "accent": "#9A8C7A" }
+  },
+  "Site/Fundo": {
+    "Claro": {
+      "background": "#FFFFFF",
+      "surface": "#F5F5F4",
+      "foreground": "#1F1F1F",
+      "muted-foreground": "#5E5E5B",
+      "border": "#E4E4E1",
+      "kore-seal": "{color.primary.dark}"
+    },
+    "Creme": {
+      "background": "#FBF7F2",
+      "surface": "#FFFFFF",
+      "foreground": "#2E2A26",
+      "muted-foreground": "#6B6159",
+      "border": "#E8DFD4",
+      "kore-seal": "{color.primary.dark}"
+    },
+    "Escuro": {
+      "background": "#15171C",
+      "surface": "#1E2128",
+      "foreground": "#F2F0EC",
+      "muted-foreground": "#A9A59E",
+      "border": "#353944",
+      "kore-seal": "{color.primary.tint}"
+    }
+  },
+  "Temas ativos (padrão)": {
+    "Aparência · Fontes": "Romântico",
+    "Aparência · Cores": "Terracota",
+    "Aparência · Fundo": "Creme"
+  }
+}

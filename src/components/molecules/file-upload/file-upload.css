@@ -1,0 +1,35 @@
+/*
+ * File Upload do DS v0.18: branco, borda tracejada de 1,5 px em input (gray.600), raio
+ * lg, 24 px de respiro e 8 px entre os itens, centrado; o ícone Upload Cloud de 24 px em
+ * primary.dark; o título em type.label ink e a linha de apoio em type.caption gray.700.
+ * Escolhas do código (sem estado no Penpot): arrastando por cima, borda em ring e fundo
+ * primary.tint; foco do teclado com o anel do DS; desabilitado a 45%.
+ */
+.kore-file-upload {
+  @apply relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-1.5 border-dashed border-input bg-white p-6 text-center transition;
+  @apply has-focus-visible:shadow-focus-ring;
+}
+
+.kore-file-upload--dragging {
+  @apply border-ring bg-primary-tint;
+}
+
+.kore-file-upload--disabled {
+  @apply cursor-not-allowed opacity-45;
+}
+
+.kore-file-upload__input {
+  @apply sr-only;
+}
+
+.kore-file-upload__icon {
+  @apply size-6 text-primary-dark;
+}
+
+.kore-file-upload__title {
+  @apply type-label text-ink;
+}
+
+.kore-file-upload__hint {
+  @apply type-caption text-gray-700;
+}

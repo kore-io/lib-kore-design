@@ -1,0 +1,19 @@
+/*
+ * Caixa dos campos do DS v0.16. Celular e Tablet (base): 48 px e texto de 16 px, para
+ * o iOS não dar zoom; Desktop (lg): 40 px e 14 px (decisão 103).
+ * Foco: 2 px em ring, com a borda de 1 px mais um anel interno de 1 px, sem mexer no
+ * conteúdo. Erro: 1,5 px em danger (decisão 140).
+ */
+.kore-field-box {
+  @apply flex h-12 items-center gap-2 rounded-md border border-input bg-white px-3 text-ink lg:h-10;
+  @apply type-body-lg lg:type-body-md;
+  @apply focus-within:border-ring focus-within:inset-ring focus-within:inset-ring-ring;
+}
+
+.kore-field-box--invalid {
+  @apply border-1.5 border-danger-text;
+}
+
+.kore-field-box--disabled {
+  @apply bg-gray-100 opacity-60;
+}

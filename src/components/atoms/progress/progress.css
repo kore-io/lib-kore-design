@@ -1,0 +1,30 @@
+/* Progress do DS v0.18: rótulo e valor, e o trilho de 8 px com a barra em primary. */
+.kore-progress {
+  @apply flex min-w-0 flex-col gap-2;
+}
+
+.kore-progress__header {
+  @apply flex items-baseline gap-2;
+}
+
+.kore-progress__label {
+  @apply type-body-md text-gray-700;
+}
+
+.kore-progress__value {
+  @apply type-label text-ink;
+}
+
+.kore-progress__track {
+  @apply block h-2 w-full overflow-hidden rounded-full bg-primary-tint;
+}
+
+.kore-progress__bar {
+  @apply block h-full rounded-full bg-primary-base transition-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kore-progress__bar {
+    @apply transition-none;
+  }
+}

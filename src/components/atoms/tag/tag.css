@@ -1,0 +1,38 @@
+/*
+ * Tag do DS v0.18: pílula (radius.full) de 20 px, 8 px nas laterais e 2 px em cima e
+ * embaixo, texto em type.caption. Sem cor: gray.100 e gray.700; as cores leem os tokens
+ * color.tag.<cor>.tint (fundo) e .text (texto). Nome comprido termina em reticências:
+ * inline-block, porque o text-overflow não vale num flex.
+ */
+.kore-tag {
+  @apply type-caption inline-block h-5 max-w-full rounded-full px-2 py-0.5 align-middle;
+  @apply truncate;
+}
+
+.kore-tag--none {
+  @apply bg-gray-100 text-gray-700;
+}
+
+.kore-tag--wine {
+  @apply bg-tag-wine-tint text-tag-wine-text;
+}
+
+.kore-tag--champagne {
+  @apply bg-tag-champagne-tint text-tag-champagne-text;
+}
+
+.kore-tag--green {
+  @apply bg-tag-green-tint text-tag-green-text;
+}
+
+.kore-tag--amber {
+  @apply bg-tag-amber-tint text-tag-amber-text;
+}
+
+.kore-tag--red {
+  @apply bg-tag-red-tint text-tag-red-text;
+}
+
+.kore-tag--blue {
+  @apply bg-tag-blue-tint text-tag-blue-text;
+}

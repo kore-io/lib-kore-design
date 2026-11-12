@@ -1,0 +1,17 @@
+/* Select do DS v0.16: <select> nativo sem a seta do navegador, com o chevron do DS. */
+.kore-select {
+  @apply relative;
+}
+
+.kore-select__field {
+  @apply h-full min-w-0 flex-1 cursor-pointer appearance-none bg-transparent outline-none;
+  @apply disabled:cursor-not-allowed;
+}
+
+.kore-select--placeholder .kore-select__field {
+  @apply text-placeholder;
+}
+
+.kore-select__icon {
+  @apply pointer-events-none size-5 shrink-0 text-gray-700;
+}

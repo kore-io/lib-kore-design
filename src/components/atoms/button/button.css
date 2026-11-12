@@ -1,0 +1,36 @@
+/* Button do DS v0.16 (03 · Atoms). Estados: hover só com ponteiro, foco visível e desabilitado. */
+.kore-button {
+  @apply relative inline-flex items-center justify-center rounded-md whitespace-nowrap transition select-none;
+  /* Área de toque 4 px maior em cada lado: o M (40 px) chega aos 44 px do Brand Kit. */
+  @apply after:absolute after:-inset-1;
+  @apply focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
+  @apply disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none;
+}
+
+.kore-button--sm {
+  @apply type-label h-8 px-3;
+}
+
+.kore-button--md {
+  @apply type-label h-10 px-4;
+}
+
+.kore-button--lg {
+  @apply type-label-lg h-12 px-5;
+}
+
+.kore-button--primary {
+  @apply bg-primary text-primary-foreground shadow-sm enabled:hover:bg-primary-hover;
+}
+
+.kore-button--secondary {
+  @apply border border-border bg-white text-primary-dark enabled:hover:bg-gray-100;
+}
+
+.kore-button--ghost {
+  @apply bg-transparent text-primary-dark enabled:hover:bg-primary-tint focus-visible:bg-background;
+}
+
+.kore-button--destructive {
+  @apply bg-destructive text-destructive-foreground shadow-sm enabled:hover:bg-destructive-hover;
+}

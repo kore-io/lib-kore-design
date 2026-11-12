@@ -1,0 +1,30 @@
+/*
+ * Nav Item do DS v0.16: 40 px, 10/12 px de respiro, 12 px entre o ícone (20 px) e o
+ * rótulo em type.label. Ícone em gray.700. Ativo: fundo primary.tint, texto e ícone em
+ * primary.dark, texto em negrito. O DS não tem estado Hover.
+ * Divergência (decisão 144): o Ativo do componente principal do Penpot tem peso 600;
+ * vale o 700 das instâncias da Sidebar, que as telas usam.
+ * Área de toque (decisão 158): 2 px a mais em cima e embaixo, dos 40 aos 44 px do Brand
+ * Kit; com os 4 px entre os itens, as áreas se encostam sem se sobrepor.
+ */
+.kore-nav-item {
+  @apply type-label relative flex h-10 w-full items-center gap-3 rounded-md px-3 py-2.5 text-ink transition;
+  @apply before:absolute before:inset-x-0 before:-inset-y-0.5;
+  @apply focus-visible:shadow-focus-ring focus-visible:outline-2 focus-visible:outline-paper;
+}
+
+.kore-nav-item__icon {
+  @apply inline-flex size-5 shrink-0 items-center justify-center text-gray-700;
+}
+
+.kore-nav-item__icon > svg {
+  @apply size-full;
+}
+
+.kore-nav-item--current {
+  @apply bg-primary-tint font-bold text-primary-dark;
+}
+
+.kore-nav-item--current .kore-nav-item__icon {
+  @apply text-primary-dark;
+}
