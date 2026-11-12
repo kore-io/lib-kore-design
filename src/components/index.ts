@@ -31,6 +31,8 @@ export { EmptyState, type EmptyStateProps } from './molecules/empty-state/empty-
 export {
   ToastProvider,
   useToast,
+  type ToastAction,
+  type ToastOptions,
   type ToastProviderProps,
   type ToastTone,
 } from './molecules/toast/toast';
