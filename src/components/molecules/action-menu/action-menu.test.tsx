@@ -132,4 +132,51 @@ describe('ActionMenu', () => {
     // no app, a regra `region` vale para a página.
     await expectNoA11yViolations({ container: document.body, disabledRules: ['region'] });
   });
+
+  it('o item desabilitado: focável, com aria-disabled e o motivo como descrição; selecionar não faz nada', async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <ActionMenu
+        label="Ações de Pedro Moreira"
+        groups={[
+          [
+            {
+              id: 'change',
+              label: 'Alterar resposta',
+              disabled: true,
+              disabledReason: 'Só o casal pode alterar respostas depois do prazo.',
+              onSelect: onChange,
+            },
+          ],
+        ]}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'Ações de Pedro Moreira' }));
+    const item = screen.getByRole('menuitem', { name: 'Alterar resposta' });
+    expect(item).toHaveAttribute('aria-disabled', 'true');
+    expect(item).toHaveAccessibleDescription('Só o casal pode alterar respostas depois do prazo.');
+    expect(item).toHaveClass('kore-action-menu__item--disabled');
+    // O teclado chega ao item, e o Enter não chama a ação nem fecha o menu.
+    await user.keyboard('{ArrowDown}');
+    expect(item).toHaveFocus();
+    await user.keyboard('{Enter}');
+    await user.click(item);
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+    await expectNoA11yViolations({ container: document.body, disabledRules: ['region'] });
+  });
+
+  it('sem disabled, o motivo não aparece', async () => {
+    const user = userEvent.setup();
+    render(
+      <ActionMenu
+        label="Ações"
+        groups={[[{ id: 'a', label: 'Abrir', disabledReason: 'Não aparece.', onSelect: vi.fn() }]]}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: 'Ações' }));
+    expect(screen.queryByText('Não aparece.')).toBeNull();
+    expect(screen.getByRole('menuitem', { name: 'Abrir' })).not.toHaveAttribute('aria-disabled');
+  });
 });
