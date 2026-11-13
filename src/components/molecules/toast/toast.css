@@ -1,11 +1,12 @@
 /*
  * Toast do DS v0.16: cartão branco, borda gray.300, raio lg, shadow.md, 12/14 px de
  * respiro e 12 px entre o ícone (24 px: success.text ou danger.text), o texto em body.md
- * e o X de 12 px em gray.700 (área de toque de 44 px). No topo, centralizado. A ação, quando
+ * e o X de 12 px em gray.700 (área de toque de 44 px). Centralizado: na base no celular e
+ * no tablet, no alto no computador (decisão 238(1); Navegação, como os da Cobrança). A ação, quando
  * há, é um texto em type.label primary.dark sublinhado, antes do X (o DS não tem a variante).
  */
 .kore-toast-viewport {
-  @apply pointer-events-none fixed inset-x-0 top-4 z-50 flex list-none flex-col items-center gap-2 px-4 outline-none;
+  @apply pointer-events-none fixed inset-x-0 bottom-4 z-50 flex list-none flex-col items-center gap-2 px-4 outline-none lg:top-4 lg:bottom-auto;
 }
 
 .kore-toast {

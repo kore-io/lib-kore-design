@@ -1,7 +1,16 @@
 import * as RadixToast from '@radix-ui/react-toast';
 import { CircleCheck, Info, X } from 'lucide-react';
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 import { joinClassNames } from '../../../lib/class-names';
+import { breakpoints } from '../../../tokens/layout';
 
 /** Tipos do DS: Sucesso e Erro (o Erro usa o ícone Info, como no Penpot). */
 export type ToastTone = 'success' | 'danger';
@@ -40,14 +49,33 @@ export interface ToastProviderProps {
   dismissLabel: string;
   /** O DS manda sair sozinho depois de 5 s. */
   duration?: number;
-  /** Ajuste de posição por layout (padrão: topo, centralizado). */
+  /** Ajuste de posição por layout (padrão: centralizado, na base até o lg e no alto nele). */
   viewportClassName?: string;
 }
 
+const DESKTOP_QUERY = `(min-width: ${breakpoints.lg}px)`;
+
+/** No computador (lg), o Toast fica no alto; abaixo, na base (decisão 238(1)). */
+function useIsDesktop(): boolean {
+  const [desktop, setDesktop] = useState(
+    () => typeof window.matchMedia === 'function' && window.matchMedia(DESKTOP_QUERY).matches,
+  );
+  useEffect(() => {
+    // Sem matchMedia (ex.: jsdom), fica o padrão do celular.
+    if (typeof window.matchMedia !== 'function') return;
+    const query = window.matchMedia(DESKTOP_QUERY);
+    const update = () => setDesktop(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+  return desktop;
+}
+
 /**
- * Toast do DS: fila de avisos curtos no topo (Radix Toast: região aria-live, pausa ao
- * passar o mouse ou focar, F8 leva até eles). Entra de baixo com 8 px e sai por
- * opacidade depois de 5 s.
+ * Toast do DS: fila de avisos curtos, na base no celular e no tablet e no alto no
+ * computador (Radix Toast: região aria-live, pausa ao passar o mouse ou focar, F8 leva até
+ * eles). Entra de baixo com 8 px e sai por opacidade depois de 5 s; arrastar para a borda
+ * mais perto fecha.
  */
 export function ToastProvider({
   children,
@@ -57,6 +85,7 @@ export function ToastProvider({
   viewportClassName,
 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
+  const desktop = useIsDesktop();
 
   const showToast = useCallback((toast: ToastOptions) => {
     setToasts((current) => [...current, { ...toast, id: Date.now() + Math.random() }]);
@@ -70,7 +99,11 @@ export function ToastProvider({
 
   return (
     <ToastContext.Provider value={value}>
-      <RadixToast.Provider label={label} duration={duration} swipeDirection="up">
+      <RadixToast.Provider
+        label={label}
+        duration={duration}
+        swipeDirection={desktop ? 'up' : 'down'}
+      >
         {children}
         {toasts.map((toast) => {
           const Icon = toast.tone === 'success' ? CircleCheck : Info;
