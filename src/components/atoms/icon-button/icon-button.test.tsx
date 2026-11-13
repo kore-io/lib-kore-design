@@ -26,6 +26,12 @@ describe('IconButton', () => {
       'aria-hidden',
       'true',
     );
+    rerender(<IconButton icon={<Bell />} label="Notificações, 9 não lidas" count={9} />);
+    expect(container.querySelector('.kore-icon-button__count')).toHaveTextContent(/^9$/);
+    // Acima de 9, "9+" (decisão 149); o nome acessível continua vindo do app.
+    rerender(<IconButton icon={<Bell />} label="Notificações, mais de 9 não lidas" count={12} />);
+    expect(container.querySelector('.kore-icon-button__count')).toHaveTextContent(/^9\+$/);
+    expect(screen.getByRole('button')).toHaveAccessibleName('Notificações, mais de 9 não lidas');
     rerender(<IconButton icon={<Bell />} label="Notificações" count={0} />);
     expect(container.querySelector('.kore-icon-button__count')).toBeNull();
   });

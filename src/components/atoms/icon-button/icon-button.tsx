@@ -1,12 +1,18 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { joinClassNames } from '../../../lib/class-names';
 
+/** Até onde o contador mostra o número; acima, "9+". */
+const COUNT_MAX = 9;
+
 export interface IconButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
   /** Ícone do Lucide, decorativo. */
   icon: ReactNode;
   /** Nome acessível, vindo do app (ex.: "Abrir menu"). */
   label: string;
-  /** Contador sobre o ícone (ex.: notificações não lidas); o número é visual. */
+  /**
+   * Contador sobre o ícone (ex.: notificações não lidas); o número é visual. Acima de 9,
+   * mostra "9+" (decisão 149; o `label` diz o número, ex.: "mais de 9").
+   */
   count?: number;
 }
 
@@ -34,7 +40,7 @@ export function IconButton({
       </span>
       {count !== undefined && count > 0 && (
         <span className="kore-icon-button__count" aria-hidden="true">
-          {count}
+          {count > COUNT_MAX ? `${COUNT_MAX}+` : count}
         </span>
       )}
     </button>
