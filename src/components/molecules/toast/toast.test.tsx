@@ -96,6 +96,29 @@ describe('Toast', () => {
     await waitFor(() => expect(document.querySelector('.kore-toast')).toBeNull());
   });
 
+  it('no celular e no tablet, na base: arrastar para baixo fecha (decisão 238(1))', async () => {
+    const user = userEvent.setup();
+    renderWithProvider();
+    await user.click(screen.getByRole('button', { name: 'Mostrar' }));
+    expect(document.querySelector('.kore-toast')).toHaveAttribute('data-swipe-direction', 'down');
+  });
+
+  it('no computador (lg), no alto: arrastar para cima fecha', async () => {
+    const user = userEvent.setup();
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        matches: query === '(min-width: 1024px)',
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    renderWithProvider();
+    await user.click(screen.getByRole('button', { name: 'Mostrar' }));
+    expect(document.querySelector('.kore-toast')).toHaveAttribute('data-swipe-direction', 'up');
+    vi.unstubAllGlobals();
+  });
+
   it('useToast sem o provider avisa o erro', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
     expect(() => render(<Trigger tone="success" message="x" />)).toThrow(/ToastProvider/);
