@@ -1,6 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { EllipsisVertical } from 'lucide-react';
-import { Fragment, type ReactElement, type ReactNode } from 'react';
+import { Fragment, useId, type ReactElement, type ReactNode } from 'react';
 import { joinClassNames } from '../../../lib/class-names';
 
 export interface ActionMenuItem {
@@ -14,6 +14,16 @@ export interface ActionMenuItem {
   content?: ReactNode;
   /** Ação destrutiva (ex.: Mover para a lixeira): texto em destructive. */
   destructive?: boolean;
+  /**
+   * Item desabilitado: continua focável no teclado, com `aria-disabled`, e selecionar não
+   * faz nada (o menu fica aberto). Use com o `disabledReason`.
+   */
+  disabled?: boolean;
+  /**
+   * O motivo do desabilitado, vindo do app (ex.: "Só o casal pode alterar respostas depois
+   * do prazo."): texto de apoio abaixo do rótulo, lido como a descrição do item.
+   */
+  disabledReason?: string;
   onSelect: () => void;
 }
 
@@ -46,6 +56,43 @@ export type ActionMenuProps = ActionMenuDotsProps | ActionMenuTriggerProps;
  * Menu de ações do DS: o botão ⋮ (32 px, área de toque de 44 px), ou um gatilho do app,
  * abre o popover com os itens, com o teclado de menu do DropdownMenu do Radix.
  */
+function Item({ item }: { item: ActionMenuItem }) {
+  const reasonId = useId();
+  const reason = item.disabled === true ? item.disabledReason : undefined;
+  return (
+    <DropdownMenu.Item
+      className={joinClassNames({
+        names: [
+          'kore-action-menu__item',
+          item.destructive && 'kore-action-menu__item--destructive',
+          item.disabled && 'kore-action-menu__item--disabled',
+        ],
+      })}
+      textValue={item.label}
+      // Com conteúdo próprio ou com o motivo, o nome do item é o label; o motivo é a descrição.
+      aria-label={item.content === undefined && !reason ? undefined : item.label}
+      // Desabilitado sem o `disabled` do Radix, que tiraria o item do teclado e o motivo do
+      // leitor de tela: aria-disabled e o onSelect que não faz nada (o menu fica aberto).
+      {...(item.disabled && { 'aria-disabled': true })}
+      {...(reason && { 'aria-describedby': reasonId })}
+      onSelect={(event) => {
+        if (item.disabled) {
+          event.preventDefault();
+          return;
+        }
+        item.onSelect();
+      }}
+    >
+      <span className="kore-action-menu__label">{item.content ?? item.label}</span>
+      {reason && (
+        <span id={reasonId} className="kore-action-menu__reason">
+          {reason}
+        </span>
+      )}
+    </DropdownMenu.Item>
+  );
+}
+
 export function ActionMenu({ label, trigger, groups, className }: ActionMenuProps) {
   return (
     <DropdownMenu.Root>
@@ -71,21 +118,7 @@ export function ActionMenu({ label, trigger, groups, className }: ActionMenuProp
             <Fragment key={group.map((item) => item.id).join()}>
               {index > 0 && <DropdownMenu.Separator className="kore-action-menu__separator" />}
               {group.map((item) => (
-                <DropdownMenu.Item
-                  key={item.id}
-                  className={joinClassNames({
-                    names: [
-                      'kore-action-menu__item',
-                      item.destructive && 'kore-action-menu__item--destructive',
-                    ],
-                  })}
-                  textValue={item.label}
-                  // Com conteúdo próprio, o nome do item é o label (não o que o conteúdo diz).
-                  aria-label={item.content === undefined ? undefined : item.label}
-                  onSelect={item.onSelect}
-                >
-                  {item.content ?? item.label}
-                </DropdownMenu.Item>
+                <Item key={item.id} item={item} />
               ))}
             </Fragment>
           ))}
