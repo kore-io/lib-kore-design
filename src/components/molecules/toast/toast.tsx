@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { joinClassNames } from '../../../lib/class-names';
 import { breakpoints } from '../../../tokens/layout';
 
@@ -136,13 +137,39 @@ export function ToastProvider({
             </RadixToast.Root>
           );
         })}
-        <RadixToast.Viewport
-          label={`${label} ({hotkey})`}
-          className={joinClassNames({ names: ['kore-toast-viewport', viewportClassName] })}
-        />
+        <ToastRegion>
+          <RadixToast.Viewport
+            label={`${label} ({hotkey})`}
+            className={joinClassNames({ names: ['kore-toast-viewport', viewportClassName] })}
+          />
+        </ToastRegion>
       </RadixToast.Provider>
     </ToastContext.Provider>
   );
+}
+
+/**
+ * A região dos avisos fica no body, fora da árvore do app (decisão 263(1)): o modal do Radix
+ * marca com aria-hidden tudo o que não é ele, menos os elementos com aria-live (pacote
+ * aria-hidden). O contêiner leva aria-live="off" só para ficar de fora; o anúncio continua
+ * sendo o do Radix Toast (role="status"). O contêiner entra no body ao montar.
+ */
+function ToastRegion({ children }: { children: ReactNode }) {
+  const [container] = useState(() => {
+    if (typeof document === 'undefined') return null;
+    const element = document.createElement('div');
+    element.className = 'kore-toast-region';
+    element.setAttribute('aria-live', 'off');
+    return element;
+  });
+  useEffect(() => {
+    if (!container) return;
+    document.body.appendChild(container);
+    return () => {
+      container.remove();
+    };
+  }, [container]);
+  return container ? createPortal(children, container) : null;
 }
 
 /** Mostra um Toast. Precisa do ToastProvider acima. */
