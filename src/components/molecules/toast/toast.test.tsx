@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { expectNoA11yViolations } from '../../../../tests/a11y';
+import { Dialog } from '../dialog/dialog';
 import { ToastProvider, useToast, type ToastTone } from './toast';
 
 function Trigger({ tone, message }: { tone: ToastTone; message: string }) {
@@ -129,5 +130,43 @@ describe('Toast', () => {
     const { container } = renderWithProvider();
     await user.click(screen.getByRole('button', { name: 'Mostrar' }));
     await expectNoA11yViolations({ container, disabledRules: ['region'] });
+  });
+});
+
+describe('Toast com um modal aberto (decisão 263(1))', () => {
+  function Modal() {
+    const { showToast } = useToast();
+    return (
+      <Dialog
+        open
+        onOpenChange={() => {}}
+        title="Detalhe"
+        actions={
+          <button type="button" onClick={() => showToast({ tone: 'success', message: 'Salvo.' })}>
+            Salvar
+          </button>
+        }
+      />
+    );
+  }
+
+  it('a região dos avisos fica fora do aria-hidden do modal, para o leitor de tela', async () => {
+    const user = userEvent.setup();
+    render(
+      <ToastProvider label="Avisos" dismissLabel="Fechar">
+        <main>
+          <p>Conteúdo da página</p>
+          <Modal />
+        </main>
+      </ToastProvider>,
+    );
+    await user.click(screen.getByRole('button', { name: 'Salvar' }));
+    // O que está sob aria-hidden some do getByRole: a região e o Toast continuam acessíveis.
+    const region = screen.getByRole('region', { name: 'Avisos (F8)' });
+    expect(region).toContainElement(screen.getByText('Salvo.'));
+    expect(region.closest('[aria-hidden="true"]')).toBeNull();
+    expect(
+      screen.queryByText('Conteúdo da página')?.closest('[aria-hidden="true"]'),
+    ).not.toBeNull();
   });
 });

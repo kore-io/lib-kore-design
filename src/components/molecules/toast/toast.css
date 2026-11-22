@@ -4,9 +4,11 @@
  * e o X de 12 px em gray.700 (área de toque de 44 px). Centralizado: na base no celular e
  * no tablet, no alto no computador (decisão 238(1); Navegação, como os da Cobrança). A ação, quando
  * há, é um texto em type.label primary.dark sublinhado, antes do X (o DS não tem a variante).
+ * A região fica em z-60, acima do véu e do conteúdo do Dialog (z-50), para o Toast de
+ * dentro de um modal não sair escurecido (decisão 263(1)).
  */
 .kore-toast-viewport {
-  @apply pointer-events-none fixed inset-x-0 bottom-4 z-50 flex list-none flex-col items-center gap-2 px-4 outline-none lg:top-4 lg:bottom-auto;
+  @apply pointer-events-none fixed inset-x-0 bottom-4 z-60 flex list-none flex-col items-center gap-2 px-4 outline-none lg:top-4 lg:bottom-auto;
 }
 
 .kore-toast {
