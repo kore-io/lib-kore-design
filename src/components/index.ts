@@ -71,3 +71,8 @@ export {
   type DataTableProps,
   type DataTableRowProps,
 } from './molecules/data-table/data-table';
+export {
+  Pagination,
+  paginationRange,
+  type PaginationProps,
+} from './molecules/pagination/pagination';
