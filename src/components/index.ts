@@ -61,3 +61,13 @@ export {
 } from './atoms/segmented-control/segmented-control';
 export { Switch, type SwitchProps } from './atoms/switch/switch';
 export { Progress, type ProgressProps } from './atoms/progress/progress';
+export {
+  DataTable,
+  DataTableCell,
+  DataTableRow,
+  type DataTableCellProps,
+  type DataTableColumn,
+  type DataTableColumnSize,
+  type DataTableProps,
+  type DataTableRowProps,
+} from './molecules/data-table/data-table';
