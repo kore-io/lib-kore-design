@@ -8,10 +8,13 @@
  * respondido em, nas pontas; tags). A ordem do DOM é a da tabela (o ⋮ por último, para
  * as células baterem com os cabeçalhos); o cartão reordena pelo `order`.
  * Linha: 62 px, 12/16 px de respiro, 16 px entre as colunas, nas larguras do Penpot
- * (check 20, grupo 220 ou mais, pessoas 72, respostas 220, envio 140, respondido em
+ * (check 20, grupo 208 ou mais, pessoas 72, respostas 220, envio 140, respondido em
  * 130, tags 150 e ⋮ 32). Cabeçalho: 40 px, 10/16 px, fundo gray.100, type.overline em
  * gray.700. Textos: grupo em type.label, pessoas e a 1ª linha em type.body.md, a 2ª
  * linha e o contato em type.caption em gray.700; sem resposta, "—" em gray.500.
+ * Quando as colunas não cabem (o computador estreito com a Sidebar do app), o quadro rola
+ * na horizontal, e a página não: o check e o grupo ficam presos à esquerda e o ⋮ à
+ * direita, para a linha nunca perder o nome nem o menu (decisão 348 do Kore).
  */
 .kore-group-table__body {
   @apply grid gap-6 md:grid-cols-2;
@@ -19,7 +22,7 @@
 }
 
 .kore-group-table {
-  @apply lg:overflow-hidden lg:rounded-lg lg:border lg:border-gray-300 lg:bg-white;
+  @apply lg:min-w-0 lg:max-w-full lg:overflow-x-auto lg:rounded-lg lg:border lg:border-gray-300 lg:bg-white;
 }
 
 .kore-group-table-header {
@@ -33,7 +36,7 @@
 }
 
 .kore-group-table-header__group {
-  @apply min-w-55 flex-1;
+  @apply min-w-52 flex-1;
 }
 
 .kore-group-table-header__people {
@@ -152,7 +155,7 @@
 }
 
 .kore-group-row__group {
-  @apply lg:min-h-0 lg:min-w-55;
+  @apply lg:min-h-0 lg:min-w-52;
 }
 
 .kore-group-row__people {
@@ -181,4 +184,46 @@
 
 .kore-group-row__tags {
   @apply lg:w-37.5 lg:shrink-0 lg:basis-auto lg:flex-nowrap lg:overflow-hidden;
+}
+
+/*
+ * A rolagem no quadro (decisão 348): o cabeçalho e as linhas têm a largura mínima das
+ * colunas (check 20, grupo 208, pessoas 72, respostas 220, envio 140, respondido em 130,
+ * tags 150 e ⋮ 32, mais os 7 espaços de 16 e os 16 de cada ponta: 1116 px). O grupo tem
+ * 208 e não os 220 do Penpot para a tabela caber sem rolar em 1440 com a Sidebar do app
+ * (o quadro tem 1118 px); antes, os 10 px que sobravam ficavam cortados. As
+ * células presas ganham o fundo da linha (branco, ou gray.100 no cabeçalho), a altura
+ * inteira da linha e o respiro ao lado, para o que rola passar por baixo delas.
+ */
+.kore-group-table-header,
+.kore-group-row {
+  @apply lg:min-w-279;
+}
+
+.kore-group-table-header__select,
+.kore-group-row__select,
+.kore-group-table-header__group,
+.kore-group-row__group,
+.kore-group-table-header__actions,
+.kore-group-row__actions {
+  @apply lg:sticky lg:z-10 lg:box-content lg:self-stretch lg:bg-inherit;
+}
+
+.kore-group-table-header__select,
+.kore-group-row__select {
+  @apply lg:left-0 lg:-ml-4 lg:items-center lg:pl-4;
+}
+
+.kore-group-table-header__group,
+.kore-group-row__group {
+  @apply lg:left-9 lg:-ml-4 lg:pl-4;
+}
+
+.kore-group-table-header__group {
+  @apply lg:flex lg:items-center;
+}
+
+.kore-group-table-header__actions,
+.kore-group-row__actions {
+  @apply lg:right-0 lg:-mr-4 lg:items-center lg:pr-4;
 }
