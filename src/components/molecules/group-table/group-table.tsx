@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { joinClassNames } from '../../../lib/class-names';
+import { useHorizontalOverflow } from '../../../lib/use-horizontal-overflow';
 
 export interface GroupTableProps {
   /** Nome da tabela para o leitor de tela (texto do app). */
@@ -15,17 +16,31 @@ export interface GroupTableProps {
  * Tabela de grupos da tela Grupos e convidados (DS v0.18). No computador (≥ 1024 px), a
  * tabela com o Group Table Header; no tablet, cartões em duas colunas; no celular, uma.
  * O DOM é um só, com os papéis de tabela do ARIA, e o CSS muda a forma.
+ * Quando as colunas não cabem, o quadro rola na horizontal (decisão 348): ele vira uma
+ * região com o mesmo nome da tabela e entra na ordem do Tab, para as setas rolarem pelo
+ * teclado (WCAG 2.1.1), e as colunas presas ganham a sombra na borda do lado em que há
+ * colunas escondidas.
  */
 export function GroupTable({ label, header, children, className }: GroupTableProps) {
+  const { ref, overflow } = useHorizontalOverflow<HTMLDivElement>();
   return (
     <div
-      role="table"
-      aria-label={label}
-      className={joinClassNames({ names: ['kore-group-table', className] })}
+      ref={ref}
+      {...(overflow.scrolls ? { role: 'region', 'aria-label': label, tabIndex: 0 } : {})}
+      className={joinClassNames({
+        names: [
+          'kore-group-table',
+          overflow.hiddenStart && 'kore-group-table--hidden-start',
+          overflow.hiddenEnd && 'kore-group-table--hidden-end',
+          className,
+        ],
+      })}
     >
-      {header}
-      <div role="rowgroup" className="kore-group-table__body">
-        {children}
+      <div role="table" aria-label={label} className="kore-group-table__table">
+        {header}
+        <div role="rowgroup" className="kore-group-table__body">
+          {children}
+        </div>
       </div>
     </div>
   );

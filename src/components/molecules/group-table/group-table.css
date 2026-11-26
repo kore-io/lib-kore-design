@@ -25,6 +25,11 @@
   @apply lg:min-w-0 lg:max-w-full lg:overflow-x-auto lg:rounded-lg lg:border lg:border-gray-300 lg:bg-white;
 }
 
+/* O quadro que rola entra na ordem do Tab (as setas rolam): o anel de foco do DS. */
+.kore-group-table:focus-visible {
+  @apply shadow-focus-ring outline-2 outline-paper;
+}
+
 .kore-group-table-header {
   @apply hidden;
   @apply lg:flex lg:min-h-10 lg:items-center lg:gap-4 lg:bg-gray-100 lg:px-4 lg:py-2.5;
@@ -226,4 +231,36 @@
 .kore-group-table-header__actions,
 .kore-group-row__actions {
   @apply lg:right-0 lg:-mr-4 lg:items-center lg:pr-4;
+}
+
+/*
+ * Colunas escondidas (acréscimo 2 da decisão 348): a sombra na borda das colunas presas,
+ * do lado em que há colunas fora do quadro (à direita do grupo depois de rolar, à
+ * esquerda do ⋮ antes do fim). É um degradê de 12 px da Tinta a 8 % para o transparente,
+ * a mesma cor e o mesmo desfoque do shadow md do DS, num pseudo-elemento fora da célula:
+ * a largura das colunas não muda quando a sombra aparece.
+ */
+.kore-group-table-header__group,
+.kore-group-row__group,
+.kore-group-table-header__actions,
+.kore-group-row__actions {
+  @apply lg:after:pointer-events-none lg:after:absolute lg:after:inset-y-0 lg:after:w-3;
+  @apply lg:after:from-ink/8 lg:after:to-transparent lg:after:opacity-0 lg:after:transition-opacity;
+}
+
+.kore-group-table-header__group,
+.kore-group-row__group {
+  @apply lg:after:left-full lg:after:bg-linear-to-r;
+}
+
+.kore-group-table-header__actions,
+.kore-group-row__actions {
+  @apply lg:after:right-full lg:after:bg-linear-to-l;
+}
+
+.kore-group-table--hidden-start .kore-group-table-header__group,
+.kore-group-table--hidden-start .kore-group-row__group,
+.kore-group-table--hidden-end .kore-group-table-header__actions,
+.kore-group-table--hidden-end .kore-group-row__actions {
+  @apply lg:after:opacity-100;
 }
