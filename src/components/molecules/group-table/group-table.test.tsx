@@ -1,5 +1,5 @@
-import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { expectNoA11yViolations } from '../../../../tests/a11y';
 import { Badge } from '../../atoms/badge/badge';
 import { Checkbox } from '../../atoms/checkbox/checkbox';
@@ -121,5 +121,51 @@ describe('GroupTable, GroupTableHeader e GroupRow', () => {
       </>,
     );
     await expectNoA11yViolations({ container });
+  });
+
+  describe('o quadro que rola (decisão 348)', () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    function frameWidths({
+      scrollWidth,
+      clientWidth,
+    }: {
+      scrollWidth: number;
+      clientWidth: number;
+    }) {
+      vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(scrollWidth);
+      vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(clientWidth);
+    }
+
+    it('sem rolagem, o quadro não é região nem entra no Tab', () => {
+      frameWidths({ scrollWidth: 1118, clientWidth: 1118 });
+      renderTable();
+      expect(screen.queryByRole('region')).toBeNull();
+      const frame = screen.getByRole('table', { name: 'Grupos' }).parentElement;
+      expect(frame).not.toHaveAttribute('tabindex');
+      expect(frame?.className).toBe('kore-group-table');
+    });
+
+    it('com rolagem, vira a região focável com o nome da tabela e marca o lado escondido', async () => {
+      frameWidths({ scrollWidth: 1116, clientWidth: 702 });
+      renderTable();
+      const region = screen.getByRole('region', { name: 'Grupos' });
+      expect(region).toHaveAttribute('tabindex', '0');
+      expect(within(region).getByRole('table', { name: 'Grupos' })).toBeInTheDocument();
+      expect(region).toHaveClass('kore-group-table--hidden-end');
+      expect(region).not.toHaveClass('kore-group-table--hidden-start');
+
+      region.scrollLeft = 200;
+      fireEvent.scroll(region);
+      expect(region).toHaveClass('kore-group-table--hidden-start', 'kore-group-table--hidden-end');
+
+      region.scrollLeft = 414;
+      fireEvent.scroll(region);
+      expect(region).toHaveClass('kore-group-table--hidden-start');
+      expect(region).not.toHaveClass('kore-group-table--hidden-end');
+      await expectNoA11yViolations({ container: document.body });
+    });
   });
 });
