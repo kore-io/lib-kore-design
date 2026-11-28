@@ -153,7 +153,10 @@ describe('GroupTable, GroupTableHeader e GroupRow', () => {
       renderTable();
       const region = screen.getByRole('region', { name: 'Grupos' });
       expect(region).toHaveAttribute('tabindex', '0');
-      expect(within(region).getByRole('table', { name: 'Grupos' })).toBeInTheDocument();
+      const table = within(region).getByRole('table', { name: 'Grupos' });
+      // O nome vem da tabela (aria-labelledby), não de um aria-label repetido.
+      expect(region).not.toHaveAttribute('aria-label');
+      expect(region).toHaveAttribute('aria-labelledby', table.id);
       expect(region).toHaveClass('kore-group-table--hidden-end');
       expect(region).not.toHaveClass('kore-group-table--hidden-start');
 
