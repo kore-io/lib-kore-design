@@ -246,6 +246,7 @@
 .kore-group-row__actions {
   @apply lg:after:pointer-events-none lg:after:absolute lg:after:inset-y-0 lg:after:w-3;
   @apply lg:after:from-ink/8 lg:after:to-transparent lg:after:opacity-0 lg:after:transition-opacity;
+  @apply lg:motion-reduce:after:transition-none;
 }
 
 .kore-group-table-header__group,
